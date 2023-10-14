@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+  background-color: #0072C6;
+}
+
+a {
+  color: #242424;
+  text-decoration: none;
+}
+
+em {
+  color: #f9f8ff;
+  font-style: normal;
+}
+
+h1 {
+  font-size: 3.5em;
+  color: #f9f8ff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+  color: #f9f8ff;
+}
+
+header,
+footer {
+  background-color: white;
+  padding: 20px 35px;
+}
+
+.cta:hover {
+  background: grey;
+  text-decoration: none;
+}
+
+section {
+  padding: 80px;
+}
+
+footer {
+  bottom: 0;
+}
+
+.section-connexion h2 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+  color: white;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+label {
+  margin: 10px 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input[type='submit'] {
+  background-color: black;
+	color: white;
+	border: none;
+  margin-top: 30px;
+	padding: 10px 20px;
+	border-radius: 5px;
+  width: 200px;
+}
+
+img {
+  width: 100px;
+}
