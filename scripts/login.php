@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 require('./db.php');
 
 if (!isset($_POST['identifiant']) || !isset($_POST['mdp']))
@@ -26,7 +26,6 @@ $stmt->bindParam(':identifiant', $valeur, PDO::PARAM_STR);
 $stmt->execute();
 
 $resultats = $stmt->fetchAll();
-
 
 if (password_verify($mdp, $res['mdp'])) {
     // $_SESSION['identifiant'] = $identifiant;
