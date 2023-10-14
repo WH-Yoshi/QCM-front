@@ -12,10 +12,11 @@ function error_message(){
 <html lang="fr">
 
 <head>
-    <meta charset="utf-8" >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Luca Abs">
     <title>Henallux QCM</title>
-    <link href="style/style.css" rel="stylesheet" >
-    <link href="style/index.css" rel="stylesheet" >
+    <link href="style/index.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Montserrat&display=swap" rel="stylesheet">
@@ -34,8 +35,8 @@ function error_message(){
             <form id="form" method="post" action="./scripts/login.php">
                 <label for="identifiant">Identifiant</label>
                 <input type="text" name="identifiant" id="identifiant">
-                <label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password">
+                <label for="mdp">Mot de passe</label>
+                <input type="password" name="mdp" id="mdp">
                 <input type="submit" value="Se connecter" class="cta">
                 <h4 id="error"><?php error_message();?></h4>
             </form>

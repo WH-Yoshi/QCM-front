@@ -103,3 +103,9 @@ input[type='submit'] {
 img {
   width: 100px;
 }
+
+h4 {
+  margin-top: 10px;
+  color: #ee1180;
+  font-size: 0.7em;
+}
