@@ -2,38 +2,38 @@
 session_start();
 require('./db.php');
 
-if (!isset($_POST['identifiant']) || !isset($_POST['mdp']))
+if (!isset($_POST['Identifiant']) || !isset($_POST['Motdepasse']))
 {
     $_SESSION['message'] = "Veuillez remplir les champs";
-    header('Location: ../index.php');
+    header('Location: ../connection.php');
     exit();
 }
 
-$identifiant = $_POST['identifiant'];
-$mdp = $_POST['mdp'];
+$identifiant = $_POST['Identifiant'];
+$mdp = $_POST['Motdepasse'];
 
 if (empty($identifiant)) {
     $_SESSION['message'] = "Identifiant invalide";
-    header('Location: ../index.php');
+    header('Location: ../connection.php');
     exit();
 }
 
-$sql = "SELECT * FROM utilisateur WHERE Identifiant = :identifiant";
+$sql = "SELECT Motdepasse FROM UTILISATEUR WHERE Identifiant = :Identifiant";
 $stmt = $db->prepare($sql);
 
 $valeur = $identifiant;
-$stmt->bindParam(':identifiant', $valeur, PDO::PARAM_STR);
+$stmt->bindParam(':Identifiant', $valeur, PDO::PARAM_STR);
 $stmt->execute();
 
 $resultats = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (password_verify($mdp, $resultats['mdp'])) {
-    $_SESSION['identifiant'] = $identifiant;
-    header('Location: ./test.php');
+if (password_verify($mdp, $resultats['Motdepasse'])) {
+    $_SESSION['Identifiant'] = $identifiant;
+    header('Location: ./qcm.php');
     exit();
 } else {
     $_SESSION['message'] = "Identifiant ou mot de passe invalide";
-    header('Location: ../index.php');
+    header('Location: ../connection.php');
     exit();
 }
 ?>
