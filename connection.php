@@ -16,7 +16,7 @@ function error_message(){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Luca Abs">
     <title>Henallux QCM</title>
-    <link href="styles/connection.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Montserrat&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ function error_message(){
     <header>
         <nav>
             <img src="images/logo.png" alt="Logo Henallux" >
-            <h3>QCM - Technologie WEB</h3>
+            <h3>QCM - Technique WEB</h3>
         </nav>
     </header>
     <main>

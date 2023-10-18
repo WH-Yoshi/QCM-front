@@ -29,7 +29,7 @@ $resultats = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (password_verify($mdp, $resultats['Motdepasse'])) {
     $_SESSION['Identifiant'] = $identifiant;
-    header('Location: ./qcm.php');
+    header('Location: ./menu.php');
     exit();
 } else {
     $_SESSION['message'] = "Identifiant ou mot de passe invalide";

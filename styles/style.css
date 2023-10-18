@@ -1,3 +1,5 @@
+/* all */
+
 * {
   margin: 0;
 }
@@ -38,11 +40,6 @@ footer {
   padding: 20px 35px;
 }
 
-.cta:hover {
-  background: grey;
-  text-decoration: none;
-}
-
 section {
   padding: 80px;
 }
@@ -51,12 +48,39 @@ footer {
   bottom: 0;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+img {
+  width: 100px;
+}
+
+h4 {
+  margin-top: 10px;
+  color: #ee1180;
+  font-size: 0.7em;
+}
+
+/* connection */
+
+.cta:hover {
+  background: grey;
+  text-decoration: none;
+}
 .section-connexion h2 {
   color: #ffffff;
   text-align: center;
   margin-bottom: 50px;
 }
-
 form {
   display: flex;
   flex-direction: column;
@@ -77,19 +101,6 @@ input[type="text"], input[type="password"] {
 label {
   margin: 10px 0;
 }
-
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 input[type='submit'] {
   background-color: black;
 	color: white;
@@ -100,12 +111,9 @@ input[type='submit'] {
   width: 200px;
 }
 
-img {
-  width: 100px;
-}
+/* menu */
 
-h4 {
-  margin-top: 10px;
-  color: #ee1180;
-  font-size: 0.7em;
+.section-menu {
+  display: flex;
+  
 }
