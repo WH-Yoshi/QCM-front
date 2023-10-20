@@ -41,17 +41,14 @@ footer {
 }
 
 section {
-  padding: 80px;
-}
-
-footer {
-  bottom: 0;
+  padding: 20px 35px;
 }
 
 main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: -webkit-fill-available;
 }
 
 nav {
@@ -88,7 +85,6 @@ form {
   margin: auto;
   color: white;
 }
-
 input[type="text"], input[type="password"] {
   width: 100%;
   padding: 12px 20px;
@@ -97,7 +93,6 @@ input[type="text"], input[type="password"] {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-
 label {
   margin: 10px 0;
 }
@@ -115,5 +110,52 @@ input[type='submit'] {
 
 .section-menu {
   display: flex;
-  
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: -webkit-fill-available;
+}
+.section-panels {
+  display: flex;
+  justify-content: space-around;
+}
+.section-panels article {
+  display: flex;
+  width: 35%;
+  height: 350px;
+  align-items: center;
+  border: solid;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.section-panels div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.section-panels h5 {
+  margin-top: 15px;
+  font-weight: 600;
+  font-size: larger;
+}
+.section-panels p {
+  margin: 15px;
+}
+.section-panels a{
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.section-panels a.button {
+  text-align: center;
+  background-color: black;
+  text-decoration: none;
+  color: white;
+  border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+  width: 200px;
+  font-size: large;
+}
+.section-panels a.button:hover {
+  background-color: grey;
 }
