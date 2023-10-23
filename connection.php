@@ -35,8 +35,6 @@ function error_message(){
             <form id="form" method="post" action="./scripts/login.php">
                 <label for="Identifiant">Identifiant</label>
                 <input type="text" name="Identifiant" id="Identifiant">
-                <label for="Nom">Prénom</label>
-                <input type="text" name="Nom" id="Nom">
                 <label for="Motdepasse">Mot de passe</label>
                 <input type="password" name="Motdepasse" id="Motdepasse">
                 <input type="submit" value="Se connecter" class="cta">

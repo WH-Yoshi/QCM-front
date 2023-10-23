@@ -29,16 +29,16 @@ session_start();
                 <article class="start">
                     <div>
                         <h5>Informations</h5>
-                        <p>Cet examen se compose de 10 questions choisies au hasard sur les 20 que vous avez étudiés. <br></br> Il n’y a qu’une seule reponse possible par question</p>
+                        <p>Cet examen se compose de 10 questions choisies au hasard sur les 20 que vous avez étudiés. <br>Il n’y a qu’une seule reponse possible par question</p>
                     </div>
-                    <a href="target" class="button">Commencer</a>
+                    <a href="./qcm.php" class="button">Commencer</a>
                 </article>
                 <article class="result">
                     <div>
                         <h5>Resultats</h5>
                         <p>Pour verifier les resultat après avoir fini l’examen appuyer ici</p>
                     </div>
-                    <a href="target" class="button">Resultats</a>
+                    <a href="./result.php" class="button">Resultats</a>
                 </article>              
             </section>
         </section>        
