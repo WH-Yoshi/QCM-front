@@ -59,7 +59,7 @@ img {
   width: 77px;
 }
 
-h4 {
+#connexion h4 {
   margin-top: 10px;
   color: #ee1180;
   font-size: 0.7em;
@@ -74,7 +74,7 @@ h4 {
   text-align: center;
   margin-bottom: 50px;
 }
-form {
+#form-connexion {
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -92,7 +92,7 @@ input[type="text"], input[type="password"] {
 input#Nom{
   
 }
-label {
+.connexion label {
   margin: 10px 0;
 }
 input[type='submit'] {
@@ -155,4 +155,50 @@ input[type='submit'] {
 }
 .section-panels a.button:hover {
   background-color: grey;
+}
+
+/* QCM */
+
+.question-boxes{
+  border-radius: 10px;
+}
+#form-qcm{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    color: white;
+}
+.qcm-exam h4 {
+  margin-bottom: 10px;
+  font-size: 0.8em;
+}
+ol {
+  list-style-type: none;
+  padding: 5px;
+}
+input[type="radio"] {
+  appearance: none;
+
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+
+  top: 4px;
+}
+input:checked {
+  border: 6px solid black;
+}
+.qcm-exam label {
+  margin: 0 15px;
+  line-height: 32px;
+}
+.answer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }
