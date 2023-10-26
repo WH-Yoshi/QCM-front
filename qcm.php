@@ -24,8 +24,8 @@ session_start();
     </header>
     <main>
         <section class="qcm-exam">
+            <h2>QCM : L'informatique de base</h2>
             <article class="question-list">
-                <h2>QCM : L'informatique de base</h2>
                 <form id="form-qcm" method="post" action="./scripts/qcm.php">
                     <fieldset class="question-boxes">
                         <legend>Question 1</legend>

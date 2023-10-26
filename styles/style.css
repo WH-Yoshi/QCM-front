@@ -30,6 +30,7 @@ h1 {
 
 h2 {
   color: #f9f8ff;
+  text-align: center;
 }
 
 header,
@@ -168,6 +169,16 @@ input[type='submit'] {
     width: 50%;
     margin: auto;
     color: white;
+}
+.qcm-exam {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: -webkit-fill-available;
+}
+.question-list {
+    display: flex;
+    flex-direction: column;
 }
 .qcm-exam h4 {
   margin-bottom: 10px;
