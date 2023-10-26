@@ -26,7 +26,7 @@ session_start();
         <section class="qcm-exam">
             <h2>QCM : L'informatique de base</h2>
             <article class="question-list">
-                <form id="form-qcm" method="post" action="./scripts/qcm.php">
+                <form class="form-qcm" method="post" action="./scripts/qcm.php">
                     <fieldset class="question-boxes">
                         <legend>Question 1</legend>
                         <ol>
@@ -47,6 +47,36 @@ session_start();
                                 <div class="answer">
                                     <input type="radio" name="q1" id="q1a4" value="q1a4">
                                     <label for="q1a4">Central Power Unit</label>
+                                </div>
+                                <div class="answer">
+                                    <input type="radio" name="q1" id="q1?" value="q1?">
+                                    <label for="q1?">Je ne sais pas</label>
+                                </div>
+                            </li>
+                        </ol>
+                    </fieldset>
+                </form>
+                <form class="form-qcm" method="post" action="./scripts/qcm.php">
+                    <fieldset class="question-boxes">
+                        <legend>Question 2</legend>
+                        <ol>
+                            <li>
+                                <h4>Quel langage de programmation est principalement utilisé pour le développement d'applications mobiles sur la plateforme iOS ?</h4>
+                                <div class="answer">
+                                    <input type="radio" name="q2" id="q2a1" value="q2a1">
+                                    <label for="q2a1">Java</label>
+                                </div>
+                                <div class="answer">
+                                    <input type="radio" name="q2" id="q2a2" value="q2a2">
+                                    <label for="q2a2">C++</label>
+                                </div>
+                                <div class="answer">
+                                    <input type="radio" name="q2" id="q2a3" value="q2a3">
+                                    <label for="q2a3">Swift</label>
+                                </div>
+                                <div class="answer">
+                                    <input type="radio" name="q2" id="q2a4" value="q2a4">
+                                    <label for="q2a4">Python</label>
                                 </div>
                             </li>
                         </ol>

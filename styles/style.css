@@ -149,8 +149,8 @@ input[type='submit'] {
   text-decoration: none;
   color: white;
   border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
   width: 200px;
   font-size: large;
 }
@@ -160,15 +160,16 @@ input[type='submit'] {
 
 /* QCM */
 
+.form-qcm{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 30px auto;
+  color: white;
+
+}
 .question-boxes{
   border-radius: 10px;
-}
-#form-qcm{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: auto;
-    color: white;
 }
 .qcm-exam {
   display: flex;
@@ -190,7 +191,7 @@ ol {
 }
 input[type="radio"] {
   appearance: none;
-
+  cursor: pointer;
   border-radius: 50%;
   width: 16px;
   height: 16px;
@@ -206,7 +207,9 @@ input:checked {
 }
 .qcm-exam label {
   margin: 0 15px;
-  line-height: 32px;
+  font-size: 0.8em;
+  line-height: 1.5em;
+  cursor: pointer;
 }
 .answer {
   display: flex;
