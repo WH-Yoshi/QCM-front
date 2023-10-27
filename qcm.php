@@ -1,5 +1,37 @@
 <?php
 session_start();
+require('./scripts/db.php');
+if (!isset($_SESSION['Identifiant'])) {
+    $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
+    header("Location: ./connection.php");
+    exit();
+}
+
+$sql = "SELECT * FROM QUESTION WHERE qcm_ID = 1 ORDER BY RAND() LIMIT 10";
+try {
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error coming from the database : " . $e->getMessage();
+}
+$questionlist = array();
+foreach ($questions as $question) {
+    $sql = "SELECT * FROM Reponses WHERE question_ID = :question_ID";
+    try {
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':question_ID', $question['ID']);
+        $stmt->execute();
+        $reponses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error coming from the database : " . $e->getMessage();
+    }
+    $questionlist[] = array(
+        'question' => $question,
+        'reponses' => $reponses
+    );
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">

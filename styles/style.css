@@ -1,123 +1,140 @@
 * {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
-
 body {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.5em;
-  background-color: #0072C6;
+  height: 100vh;
+  background-color: #0071B9;
 }
-
+main {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
 a {
-  color: #242424;
   text-decoration: none;
 }
-
 em {
   color: #f9f8ff;
   font-style: normal;
 }
-
 h1 {
-  font-size: 3.5em;
-  color: #f9f8ff;
-  font-family: 'Montserrat', sans-serif;
-}
-
-h2 {
   color: #f9f8ff;
   text-align: center;
+  font-weight: bold;
 }
-
 header,
 footer {
+  width: 100%;
   background-color: white;
-  padding: 10px 20px;
+  padding: 15px 25px;
 }
-
 section {
   padding: 20px 35px;
 }
-
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: -webkit-fill-available;
-}
-
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-img {
+.logo {
   width: 77px;
 }
-
-#connexion h4 {
-  margin-top: 10px;
-  color: #ee1180;
-  font-size: 0.7em;
-}
-
-.cta:hover {
-  background: grey;
-  text-decoration: none;
-}
-.section-connexion h2 {
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 50px;
-}
-#form-connexion {
+form{
   display: flex;
   flex-direction: column;
-  width: 400px;
-  margin: auto;
   color: white;
 }
-input[type="text"], input[type="password"] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-input#Nom{
-  
-}
-.connexion label {
-  margin: 10px 0;
-}
-input[type='submit'] {
-  background-color: black;
-	color: white;
-	border: none;
-  margin-top: 30px;
-	padding: 10px 20px;
-	border-radius: 5px;
-  width: 200px;
+label {
+  font-weight: 400c ;
 }
 
-.section-menu {
+
+/* Connection */
+#section-connexion {
+  width: 400px;
+  background-color: #5D626E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0,0,0,9);
+}
+#section-connexion .content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+}
+#section-connexion h1 {
+  font-size: 2em;
+  text-transform: uppercase;
+}
+#section-connexion form {
+  width: 100%;
+  gap: 25px;
+}
+#section-connexion form input {
+  width: 100%;
+  background: #333;
+  padding: 12px 20px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 1em;
+  color: white;
+}
+::placeholder {
+  color: #aaa;
+  font-weight: 500;
+  font-size: 1em;
+}
+#section-connexion #error {
+  color: #e01e41;
+  font-size: 1.3em;
+}
+#button {
+  padding: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+#button:hover {
+  background: #0053b9;
+  text-decoration: none;
+}
+
+
+/* Menu */
+#menu {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   height: -webkit-fill-available;
 }
+#menu h1 {
+  font-size: 2.3em;
+  text-transform: uppercase;
+  color: white;
+}
 .section-panels {
   display: flex;
   justify-content: space-around;
 }
-.section-panels article {
+.choices {
   display: flex;
   width: 35%;
   height: 350px;
@@ -125,6 +142,10 @@ input[type='submit'] {
   border: solid;
   flex-direction: column;
   justify-content: space-between;
+}
+.choicexam{
+  display: flex;
+
 }
 .section-panels div {
   display: flex;
@@ -143,7 +164,7 @@ input[type='submit'] {
   margin-top: 30px;
   margin-bottom: 20px;
 }
-.section-panels a.button {
+.section-panels .button {
   text-align: center;
   background-color: black;
   text-decoration: none;
@@ -154,8 +175,22 @@ input[type='submit'] {
   width: 200px;
   font-size: large;
 }
-.section-panels a.button:hover {
+.section-panels .button:hover {
   background-color: grey;
+}
+.custom-select {
+  position: relative;
+}
+#examen {
+  appearance: none;
+  width: 50%;
+  font-size: 1.15rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
 }
 
 /* QCM */

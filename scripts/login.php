@@ -19,12 +19,14 @@ if (empty($identifiant)) {
 }
 
 $sql = "SELECT Motdepasse FROM UTILISATEUR WHERE Identifiant = :Identifiant";
-$stmt = $db->prepare($sql);
-
-$stmt->bindParam(':Identifiant', $identifiant);
-$stmt->execute();
-
-$resultats = $stmt->fetch(PDO::FETCH_ASSOC);
+try {
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':Identifiant', $identifiant);
+    $stmt->execute();
+    $resultats = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error at statement: ". $e->getMessage();
+}
 
 if (password_verify($mdp, $resultats['Motdepasse'])) {
     $_SESSION['Identifiant'] = $identifiant;
@@ -34,4 +36,3 @@ if (password_verify($mdp, $resultats['Motdepasse'])) {
     header('Location: ../connection.php');
 }
 exit();
-?>
