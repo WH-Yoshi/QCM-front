@@ -12,6 +12,7 @@ body {
   background-color: #0071B9;
 }
 main {
+  height: 100%;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -46,9 +47,11 @@ nav {
   align-items: center;
 }
 .logo {
+  height: 90px;
   width: 77px;
 }
 form{
+  width: 100%;
   display: flex;
   flex-direction: column;
   color: white;
@@ -56,7 +59,17 @@ form{
 label {
   font-weight: 400c ;
 }
-
+form input {
+  width: 100%;
+  background: #333;
+  padding: 12px 20px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 1em;
+  color: white;
+}
 
 /* Connection */
 #section-connexion {
@@ -82,19 +95,7 @@ label {
   text-transform: uppercase;
 }
 #section-connexion form {
-  width: 100%;
   gap: 25px;
-}
-#section-connexion form input {
-  width: 100%;
-  background: #333;
-  padding: 12px 20px;
-  border: none;
-  outline: none;
-  border-radius: 4px;
-  font-weight: 500;
-  font-size: 1em;
-  color: white;
 }
 ::placeholder {
   color: #aaa;
@@ -106,7 +107,6 @@ label {
   font-size: 1.3em;
 }
 #button {
-  padding: 10px;
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -123,74 +123,87 @@ label {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: -webkit-fill-available;
+  height: 100%;
+  width: 100%;
 }
 #menu h1 {
   font-size: 2.3em;
   text-transform: uppercase;
   color: white;
 }
-.section-panels {
+#panels {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  height: 400px;
+  width: 100%;
 }
 .choices {
+  width: 40%;
+  height: 100%;
+  background-color: #5D626E;
   display: flex;
-  width: 35%;
-  height: 350px;
-  align-items: center;
-  border: solid;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0,0,0,9);
 }
-.choicexam{
-  display: flex;
-
-}
-.section-panels div {
+.choices div {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.section-panels h5 {
-  margin-top: 15px;
-  font-weight: 600;
-  font-size: larger;
-}
-.section-panels p {
-  margin: 15px;
-}
-.section-panels a{
-  margin-top: 30px;
-  margin-bottom: 20px;
-}
-.section-panels .button {
-  text-align: center;
-  background-color: black;
-  text-decoration: none;
+.choices h2 {
+  text-transform: uppercase;
   color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  width: 200px;
-  font-size: large;
+  text-decoration: underline;
 }
-.section-panels .button:hover {
-  background-color: grey;
+.choices p {
+  color: white;
+  font-weight: 400;
+  font-size: larger;
+  margin-top: 10px;
 }
-.custom-select {
-  position: relative;
+.custom-select label {
+  margin-bottom: 10px;
+  margin-left: 2px;
 }
-#examen {
+.custom-select article {
+  display: flex;
+  gap: 10px;
+}
+.custom-select select {
   appearance: none;
-  width: 50%;
+  width: 70%;
   font-size: 1.15rem;
-  padding: 0.675em 6em 0.675em 1em;
+  padding: 0.5rem 1rem;
   background-color: #fff;
   border: 1px solid #caced1;
   border-radius: 0.25rem;
   color: #000;
   cursor: pointer;
+}
+.custom-select select:focus {
+  outline: none;
+  border-color: #0071b9;
+  box-shadow: 0 0 0 0.2rem rgba(0, 113, 185, 0.25);
+}
+.custom-select input {
+  width: 30%;
+}
+.choices a {
+  width: 100%;
+  background: #333;
+  padding: 12px 20px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 1em;
+  color: white;
+  text-align: center;
 }
 
 /* QCM */

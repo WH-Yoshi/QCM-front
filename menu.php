@@ -17,46 +17,52 @@ require('./scripts/db.php');
 <body>
     <header>
         <nav>
-            <img class="logo" src="images/logo.png" alt="Logo Henallux" >
-            <h2>QCM - Technologie WEB</h2>
+            <img class="logo" src="images/logo.png" alt="Logo Henallux">
+            <?php
+            if (isset($_SESSION['Prenom'])) {
+                echo "<h3>Bonjour cher " . $_SESSION['Prenom'] . "</h3>";
+            }
+            ?>
+            <h2 id="nameofpage">QCM - Technologie WEB</h2>
         </nav>
     </header>
     <main>
         <section id="menu">
             <h1>QCM : MENU</h1>
-            <section id="panels" class="section-panels">
+            <section id="panels">
                 <article class="choices">
                     <div>
-                        <h5>Informations</h5>
-                        <p>Cet examen se compose de 10 questions choisies au hasard sur les 20 que vous avez étudiés. <br>Il n’y a qu’une seule reponse possible par question</p>
+                        <h2>Examen</h2>
+                        <p> L'examen que vous choisirez se composera de 10 questions choisies au hasard parmi les 20 du sujet étudié.</p>
                     </div>
-                    <form action="./qcm.php" class="custom-select">
+                    <form method="get" action="./qcm.php" class="custom-select">
                         <label for="examen">Sélectionner un examen :</label>
-                        <article class="choicexam">
+                        <article>
                             <select name="examen" id="examen">
+                                <option value="0">--Choisir un examen--</option>
                                 <?php
                                 try {
-                                    $sql = "SELECT Titre FROM QCM"; // Ajustez la requête SQL selon votre structure de base de données.
+                                    $sql = "SELECT Titre,Valeur FROM QCM";
                                     $stmt = $db->query($sql);
 
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "<option value='" . $row['Titre'] . "'>" . $row['Titre'] . "</option>";
+                                        echo "<option value='" . $row['Valeur'] . "'>" . $row['Titre'] . "</option>";
                                     }
                                 } catch (PDOException $e) {
                                     echo "Erreur de connexion à la base de données : " . $e->getMessage();
                                 }
                                 ?>
                             </select>
-                            <input type="submit" value="Commencer" class="button">
+                            <input type="submit" value="Commencer" id="button">
                         </article>
                     </form>
                 </article>
                 <article class="choices">
                     <div>
-                        <h5>Resultats</h5>
+                        <h2>Resultats</h2>
                         <p>Pour verifier les resultat après avoir fini l’examen appuyer ici</p>
                     </div>
-                    <a href="./result.php" class="button">Resultats</a>
+                    <a href="./result.php" id="button">Resultats</a>
                 </article>              
             </section>
         </section>        
@@ -64,5 +70,9 @@ require('./scripts/db.php');
     <footer>
         <img class="logo" src="images/logo.png" alt="Logo Henallux" >
     </footer>
+    <script>
+        const width = document.getElementById('nameofpage').offsetWidth;
+        document.getElementsByClassName('logo')[0].style.marginRight = width - 77 + "px";
+    </script>
 </body>
 </html>

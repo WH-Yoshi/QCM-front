@@ -18,7 +18,7 @@ if (empty($identifiant)) {
     exit();
 }
 
-$sql = "SELECT Motdepasse FROM UTILISATEUR WHERE Identifiant = :Identifiant";
+$sql = "SELECT Motdepasse,Prenom FROM UTILISATEUR WHERE Identifiant = :Identifiant";
 try {
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':Identifiant', $identifiant);
@@ -30,6 +30,7 @@ try {
 
 if (password_verify($mdp, $resultats['Motdepasse'])) {
     $_SESSION['Identifiant'] = $identifiant;
+    $_SESSION['Prenom'] = $resultats['Prenom'];
     header('Location: ../menu.php');
 } else {
     $_SESSION['message'] = "Identifiant ou mot de passe invalide";

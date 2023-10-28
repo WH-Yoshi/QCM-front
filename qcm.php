@@ -9,7 +9,6 @@ if (!isset($_SESSION['Identifiant'])) {
 
 $sql = "SELECT * FROM QUESTION WHERE qcm_ID = 1 ORDER BY RAND() LIMIT 10";
 try {
-
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
