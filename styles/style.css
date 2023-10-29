@@ -38,6 +38,9 @@ footer {
   background-color: white;
   padding: 15px 25px;
 }
+footer{
+  bottom: 0;
+}
 section {
   padding: 20px 35px;
 }
@@ -57,7 +60,7 @@ form{
   color: white;
 }
 label {
-  font-weight: 400c ;
+  font-weight: 400;
 }
 form input {
   width: 100%;
@@ -69,6 +72,10 @@ form input {
   font-weight: 500;
   font-size: 1em;
   color: white;
+}
+.error {
+  color: #B00020;
+  font-size: 1.3em;
 }
 
 /* Connection */
@@ -101,10 +108,6 @@ form input {
   color: #aaa;
   font-weight: 500;
   font-size: 1em;
-}
-#section-connexion #error {
-  color: #e01e41;
-  font-size: 1.3em;
 }
 #button {
   color: white;
@@ -154,6 +157,8 @@ form input {
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 100%;
+  text-align: left;
 }
 .choices h2 {
   text-transform: uppercase;
@@ -165,6 +170,9 @@ form input {
   font-weight: 400;
   font-size: larger;
   margin-top: 10px;
+}
+.choices h4.error {
+  margin-bottom: 10px;
 }
 .custom-select label {
   margin-bottom: 10px;

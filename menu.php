@@ -1,6 +1,12 @@
 <?php
 session_start();
 require('./scripts/db.php');
+function error_message(){
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -35,27 +41,30 @@ require('./scripts/db.php');
                         <h2>Examen</h2>
                         <p> L'examen que vous choisirez se composera de 10 questions choisies au hasard parmi les 20 du sujet étudié.</p>
                     </div>
-                    <form method="get" action="./qcm.php" class="custom-select">
-                        <label for="examen">Sélectionner un examen :</label>
-                        <article>
-                            <select name="examen" id="examen">
-                                <option value="0">--Choisir un examen--</option>
-                                <?php
-                                try {
-                                    $sql = "SELECT Titre,Valeur FROM QCM";
-                                    $stmt = $db->query($sql);
+                    <div>
+                        <h4 class="error"><?php error_message();?></h4>
+                        <form method="get" action="./qcm.php" class="custom-select">
+                            <label for="examen">Sélectionner un examen :</label>
+                            <article>
+                                <select name="examen" id="examen">
+                                    <option value="0" selected>--Choisir un examen--</option>
+                                    <?php
+                                    try {
+                                        $sql = "SELECT Titre,Valeur FROM QCM";
+                                        $stmt = $db->query($sql);
 
-                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "<option value='" . $row['Valeur'] . "'>" . $row['Titre'] . "</option>";
+                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                            echo "<option value='" . $row['Valeur'] . "'>" . $row['Titre'] . "</option>";
+                                        }
+                                    } catch (PDOException $e) {
+                                        echo "Erreur de connexion à la base de données : " . $e->getMessage();
                                     }
-                                } catch (PDOException $e) {
-                                    echo "Erreur de connexion à la base de données : " . $e->getMessage();
-                                }
-                                ?>
-                            </select>
-                            <input type="submit" value="Commencer" id="button">
-                        </article>
-                    </form>
+                                    ?>
+                                </select>
+                                <input type="submit" value="Commencer" id="button">
+                            </article>
+                        </form>
+                    </div>
                 </article>
                 <article class="choices">
                     <div>
@@ -70,9 +79,6 @@ require('./scripts/db.php');
     <footer>
         <img class="logo" src="images/logo.png" alt="Logo Henallux" >
     </footer>
-    <script>
-        const width = document.getElementById('nameofpage').offsetWidth;
-        document.getElementsByClassName('logo')[0].style.marginRight = width - 77 + "px";
-    </script>
+    <script src="scripts/jscripts.js"></script>
 </body>
 </html>

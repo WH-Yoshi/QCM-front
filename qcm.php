@@ -6,31 +6,36 @@ if (!isset($_SESSION['Identifiant'])) {
     header("Location: ./connection.php");
     exit();
 }
-
-$sql = "SELECT * FROM QUESTION WHERE qcm_ID = 1 ORDER BY RAND() LIMIT 10";
+$exam = $_GET['examen'];
+if ($exam == 0) {
+    $_SESSION['message'] = "Vous devez choisir un examen";
+    header("Location: ./menu.php");
+    exit();
+}
+$sql = "SELECT QUESTION.* FROM QUESTION JOIN QCM ON QUESTION.qcm_ID = QCM.qcmID WHERE QCM.Valeur = :Valeur ORDER BY RAND() LIMIT 10";
 try {
     $stmt = $db->prepare($sql);
+    $stmt->bindParam(':Valeur', $exam);
     $stmt->execute();
-    $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $questioncontentList = $stmt->fetchAll();
 } catch (PDOException $e) {
     echo "Error coming from the database : " . $e->getMessage();
 }
-$questionlist = array();
-foreach ($questions as $question) {
-    $sql = "SELECT * FROM Reponses WHERE question_ID = :question_ID";
+$questionReponses = array();
+
+foreach ($questioncontentList as $question) {
+    $sql = "SELECT Contenu FROM REPONSE WHERE question_ID = :question_ID";
     try {
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':question_ID', $question['ID']);
+        $stmt->bindParam(':question_ID', $question['questionID']);
         $stmt->execute();
-        $reponses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reponses = $stmt->fetchAll();
+        $questionReponses[$question['questionID']] = $reponses;
     } catch (PDOException $e) {
-        echo "Error coming from the database : " . $e->getMessage();
+        echo "Error coming from the database: " . $e->getMessage();
     }
-    $questionlist[] = array(
-        'question' => $question,
-        'reponses' => $reponses
-    );
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -49,7 +54,7 @@ foreach ($questions as $question) {
 <body>
     <header>
         <nav>
-            <img src="images/logo.png" alt="Logo Henallux" >
+            <img class="logo" src="images/logo.png" alt="Logo Henallux" >
             <h3>QCM - Technologie WEB</h3>
         </nav>
     </header>
@@ -57,67 +62,32 @@ foreach ($questions as $question) {
         <section class="qcm-exam">
             <h2>QCM : L'informatique de base</h2>
             <article class="question-list">
-                <form class="form-qcm" method="post" action="./scripts/qcm.php">
-                    <fieldset class="question-boxes">
-                        <legend>Question 1</legend>
-                        <ol>
-                            <li>
-                                <h4>Quelle est la signification de l'acronyme "CPU" en informatique ?</h4>
-                                <div class="answer">
-                                    <input type="radio" name="q1" id="q1a1" value="q1a1">
-                                    <label for="q1a1">Central Processing Unit</label>
-                                </div>
-                                <div class="answer">
-                                    <input type="radio" name="q1" id="q1a2" value="q1a2">
-                                    <label for="q1a2">Computer Peripheral Unit</label>
-                                </div>
-                                <div class="answer">
-                                    <input type="radio" name="q1" id="q1a3" value="q1a3">
-                                    <label for="q1a3"> Control Panel Utility</label>
-                                </div>
-                                <div class="answer">
-                                    <input type="radio" name="q1" id="q1a4" value="q1a4">
-                                    <label for="q1a4">Central Power Unit</label>
-                                </div>
-                                <div class="answer">
-                                    <input type="radio" name="q1" id="q1?" value="q1?">
-                                    <label for="q1?">Je ne sais pas</label>
-                                </div>
-                            </li>
-                        </ol>
-                    </fieldset>
-                </form>
-                <form class="form-qcm" method="post" action="./scripts/qcm.php">
-                    <fieldset class="question-boxes">
-                        <legend>Question 2</legend>
-                        <ol>
-                            <li>
-                                <h4>Quel langage de programmation est principalement utilisé pour le développement d'applications mobiles sur la plateforme iOS ?</h4>
-                                <div class="answer">
-                                    <input type="radio" name="q2" id="q2a1" value="q2a1">
-                                    <label for="q2a1">Java</label>
-                                </div>
-                                <div class="answer">
-                                    <input type="radio" name="q2" id="q2a2" value="q2a2">
-                                    <label for="q2a2">C++</label>
-                                </div>
-                                <div class="answer">
-                                    <input type="radio" name="q2" id="q2a3" value="q2a3">
-                                    <label for="q2a3">Swift</label>
-                                </div>
-                                <div class="answer">
-                                    <input type="radio" name="q2" id="q2a4" value="q2a4">
-                                    <label for="q2a4">Python</label>
-                                </div>
-                            </li>
-                        </ol>
-                    </fieldset>
-                </form>
+                <?php foreach ($questioncontentList as $key => $question) {
+                    echo "<form class='form-qcm' method='post' action='./scripts/qcm.php'>
+                            <fieldset class='question-boxes'>
+                                <legend>Question " . ($key + 1) . "</legend>
+                                <ol>
+                                    <li>
+                                        <h4>" . $question['Contenu'] . "</h4>";
+                                        $reponses = $questionReponses[$question['questionID']];
+                                        foreach ($reponses as $index => $reponse) {
+                                            echo "<div class='answer'>
+                                                <input type='radio' name='q{$question['questionID']}' id='q{$question['questionID']}a{$index}' value='q{$question['questionID']}a{$index}'>
+                                                <label for='q{$question['questionID']}a{$index}'>" . $reponse['Contenu'] . "</label>
+                                            </div>";
+                                        }
+                                    echo "</li>
+                                </ol>
+                            </fieldset>
+                        </form>";
+                }
+                ?>
             </article>
         </section>  
     </main>
     <footer>
-        <img src="images/logo.png" alt="Logo Henallux" >
+        <img class="logo" src="images/logo.png" alt="Logo Henallux" >
     </footer>
+    <script src="scripts/jscripts.js"></script>
 </body>
 </html>

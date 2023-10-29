@@ -18,7 +18,7 @@ session_start();
 <body>
     <header>
         <nav>
-            <img src="images/logo.png" alt="Logo Henallux" >
+            <img class="logo" src="images/logo.png" alt="Logo Henallux" >
             <h3>QCM - Technologie WEB</h3>
         </nav>
     </header>
@@ -28,7 +28,8 @@ session_start();
         </section>       
     </main>
     <footer>
-        <img src="images/logo.png" alt="Logo Henallux" >
+        <img class="logo" src="images/logo.png" alt="Logo Henallux" >
     </footer>
+    <scripts src="scripts/jscript.js"></scripts>
 </body>
 </html>
