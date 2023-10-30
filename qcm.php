@@ -73,9 +73,11 @@ foreach ($questioncontentList as $question) {
                                         foreach ($reponses as $index => $reponse) {
                                             echo "<div class='answer'>
                                                 <input type='radio' name='q{$question['questionID']}' id='q{$question['questionID']}a{$index}' value='q{$question['questionID']}a{$index}'>
-                                                <label for='q{$question['questionID']}a{$index}'>" . $reponse['Contenu'] . "</label>
-                                            </div>";
+                                                <label for='q{$question['questionID']}a{$index}'>" . $reponse['Contenu'] . "</label>";
                                         }
+                                        echo "<input type='radio' name='questionID' value='{$question['questionID']}'>
+                                            <label> for='q{$question['questionID']}noanswer'>Je ne sais pas</label>";
+
                                     echo "</li>
                                 </ol>
                             </fieldset>

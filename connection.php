@@ -32,7 +32,7 @@ function error_message(){
         </nav>
     </header>
     <main>
-        <section id="section-connexion">
+        <section id="connexion">
             <article class="content">
                 <h1>connexion</h1>
                 <form method="post" action="./scripts/login.php">

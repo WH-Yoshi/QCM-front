@@ -26,7 +26,7 @@ function error_message(){
             <img class="logo" src="images/logo.png" alt="Logo Henallux">
             <?php
             if (isset($_SESSION['Prenom'])) {
-                echo "<h3>Bonjour cher " . $_SESSION['Prenom'] . "</h3>";
+                echo $_SESSION['Prenom'] . " connecté";
             }
             ?>
             <h2 id="nameofpage">QCM - Technologie WEB</h2>
