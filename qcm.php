@@ -17,19 +17,19 @@ try {
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':Valeur', $exam);
     $stmt->execute();
-    $questioncontentList = $stmt->fetchAll();
+    $questioncontentList = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error coming from the database : " . $e->getMessage();
 }
 $questionReponses = array();
 
 foreach ($questioncontentList as $question) {
-    $sql = "SELECT Contenu FROM REPONSE WHERE question_ID = :question_ID";
+    $sql = "SELECT reponseID,Contenu FROM REPONSE WHERE question_ID = :question_ID ORDER BY RAND()";
     try {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':question_ID', $question['questionID']);
         $stmt->execute();
-        $reponses = $stmt->fetchAll();
+        $reponses = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
         $questionReponses[$question['questionID']] = $reponses;
     } catch (PDOException $e) {
         echo "Error coming from the database: " . $e->getMessage();

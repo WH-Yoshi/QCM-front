@@ -229,12 +229,13 @@ font-size: 2.3em;
   margin: 30px 0;
 }
 .form-qcm{
-  width: 60%;
-  margin: 20px 0;
+  width: 66%;
 }
 .question-boxes{
-  border-radius: 4px;
+  margin: 25px;
+  border-radius: 8px;
   border: 2px solid #FFF;
+  padding: 20px;
 }
 .question-boxes legend{
   background-color: #FFF;
@@ -245,45 +246,44 @@ font-size: 2.3em;
   padding: 2px 5px;
   margin: 0 10px;
 }
-#qcm-exam {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: -webkit-fill-available;
-}
-
 #qcm-exam h4 {
   margin-bottom: 10px;
-  font-size: 0.8em;
+  font-size: 1.4em;
+  font-weight: 400;
 }
-ol {
+#qcm-exam ol {
   list-style-type: none;
-  padding: 5px;
+  padding: 10px;
 }
-input[type="radio"] {
-  appearance: none;
-  cursor: pointer;
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-
-  border: 2px solid #999;
-  transition: 0.2s all linear;
-  margin-right: 5px;
-
-  top: 4px;
-}
-input:checked {
-  border: 6px solid black;
-}
-#qcm-exam label {
-  margin: 0 15px;
-  font-size: 0.8em;
-  line-height: 1.5em;
-  cursor: pointer;
+#qcm-exam li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .answer {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+}
+.answer input {
+  appearance: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color: #ffffff;
+  background-color: white;
+  padding: 6px;
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+}
+.answer input:checked {
+  border: 2px solid #333;
+  background-color: #333;
+}
+#qcm-exam label {
+  margin: 0 15px;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  cursor: pointer;
 }
