@@ -26,10 +26,8 @@ function error_message(){
 
 <body>
     <header>
-        <nav>
-            <img class="logo" src="images/logo.png" alt="Logo Henallux" >
-            <h2>QCM - Technique WEB</h2>
-        </nav>
+        <img class="logo" src="images/logo.png" alt="Logo Henallux" >
+        <h2 id="nameofpage1">QCM - Technique WEB</h2>
     </header>
     <main>
         <section id="connexion">
