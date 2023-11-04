@@ -6,12 +6,22 @@ if (!isset($_SESSION['Identifiant'])) {
     header("Location: ./connection.php");
     exit();
 }
-$exam = $_GET['examen'];
+$exam = $_POST['examen'];
 if ($exam == 0) {
     $_SESSION['message'] = "Vous devez choisir un examen";
     header("Location: ./menu.php");
     exit();
 }
+$sql = "INSERT INTO EXAMEN (utilisateur_ID, qcm_ID, Etat, Resultat) VALUES (:U_ID, :QCM_ID, 'en cours','null')";
+try {
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':U_ID', $_SESSION['userID']);
+    $stmt->bindParam(':QCM_ID', $exam);
+    $stmt->execute();
+} catch (PDOException $e) {
+    echo "Error coming from the database : " . $e->getMessage();
+}
+$_SESSION['examenID'] = $db->lastInsertId();
 $sql = "SELECT QUESTION.* FROM QUESTION JOIN QCM ON QUESTION.qcm_ID = QCM.qcmID WHERE QCM.Valeur = 'general' ORDER BY RAND() LIMIT 10";
 try {
     $stmt = $db->prepare($sql);
@@ -48,18 +58,26 @@ foreach ($questioncontentList as $question) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/147d135573.js" crossorigin="anonymous"></script>
 </head>
 <body class="longpage">
 <header>
-    <nav>
+    <div class="leftnav">
         <img class="logo" src="images/logo.png" alt="Logo Henallux">
-        <?php
-        if (isset($_SESSION['Prenom'])) {
-            echo $_SESSION['Prenom'] . " connecté";
-        }
-        ?>
         <h2 id="nameofpage">QCM - Technologie WEB</h2>
-    </nav>
+    </div>
+    <div class="dropdown">
+        <button type="button" class="dropbtn">
+            <i class="fa-solid fa-user"></i>
+            <?php if (isset($_SESSION['Prenom'])) {
+                echo "<h4>" . $_SESSION['Prenom'] . "</h4>";
+            } ?>
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content" id="myDropdown">
+            <a href="./scripts/logout.php">Déconnexion</a>
+        </div>
+    </div>
 </header>
 <main>
     <section id="qcm-exam">
@@ -74,7 +92,7 @@ foreach ($questioncontentList as $question) {
             }
             echo "QCM : ".$examen['Titre']; ?>
         </h1>
-        <form class='form-qcm' method='post' action='scripts/testreciever.php'>
+        <form class='form-qcm' method='post' action='scripts/exit.php'>
             <?php foreach ($questioncontentList as $key => $question) {
                 echo "<fieldset class='question-boxes'>
                     <legend>Question " . ($key + 1) . "</legend>
@@ -84,11 +102,11 @@ foreach ($questioncontentList as $question) {
                 $reponses = $questionReponses[$question['questionID']];
                 foreach ($reponses as $index => $reponse) {
                     echo "<div class='answer'> <!-- Answers -->
-                        <input required type='radio' name='q{$question['questionID']}' id='q{$question['questionID']}a{$index}' value='{$reponse['reponseID']}'>
+                        <input required type='radio' name='{$question['questionID']}' id='q{$question['questionID']}a{$index}' value='{$reponse['reponseID']}'>
                         <label for='q{$question['questionID']}a{$index}'>" . $reponse['Contenu'] . "</label></div>";
                 }
                 echo "<div class='answer'>
-                    <input type='radio' name='q{$question['questionID']}' id='q{$question['questionID']}noanswer' value='q{$question['questionID']}noanswer'>
+                    <input type='radio' name='{$question['questionID']}' id='q{$question['questionID']}noanswer' value='idk'>
                     <label for='q{$question['questionID']}noanswer'>Je ne sais pas</label></div>";
 
                 echo "</li>

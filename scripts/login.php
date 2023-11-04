@@ -18,7 +18,7 @@ if (empty($identifiant)) {
     exit();
 }
 
-$sql = "SELECT Motdepasse,Prenom,Role FROM UTILISATEUR WHERE Identifiant = :Identifiant";
+$sql = "SELECT * FROM UTILISATEUR WHERE Identifiant = :Identifiant";
 try {
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':Identifiant', $identifiant);
@@ -30,6 +30,7 @@ try {
 
 if (password_verify($mdp, $resultats['Motdepasse'])) {
     $_SESSION['Identifiant'] = $identifiant;
+    $_SESSION['userID'] = $resultats['utilisateurID'];
     $_SESSION['Role'] = $resultats['Role'];
     $_SESSION['Prenom'] = $resultats['Prenom'];
     if ($_SESSION['Role'] == "admin") {

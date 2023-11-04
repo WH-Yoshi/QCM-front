@@ -81,17 +81,21 @@ form input {
 }
 .error {
   color: #B00020;
+  font-weight: 500;
   font-size: 1.3em;
 }
 
 /* Connection */
+#page1header {
+  justify-content: left;
+}
 #nameofpage1 {
-  text-align: left;
-  width: calc(50% + 140px);
+  text-align: right;
+  width: calc(50% + 63px);
 }
 #connexion { /* after <main> */
   width: 400px;
-  background-color: #5D626E;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,6 +114,7 @@ form input {
 #connexion h1 {
   font-size: 2em;
   text-transform: uppercase;
+  color: #0053b9;
 }
 #connexion form {
   gap: 25px;
@@ -154,7 +159,7 @@ form input {
 .choices {
   width: 40%;
   height: 100%;
-  background-color: #5D626E;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -168,25 +173,27 @@ form input {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  text-align: left;
 }
 .choices h2 {
   text-transform: uppercase;
-  color: white;
+  color: black;
   text-decoration: underline;
 }
 .choices p {
-  color: white;
+  color: black;
   font-weight: 400;
   font-size: larger;
   margin-top: 10px;
 }
 .choices h4.error {
   margin-bottom: 10px;
+  padding: 4px 7px;
+  border-radius: 4px;
 }
 .custom-select label {
   margin-bottom: 10px;
   margin-left: 2px;
+  color: black;
 }
 .custom-select article {
   display: flex;
@@ -288,6 +295,9 @@ font-size: 2.3em;
   transition: 0.2s all linear;
   margin-right: 5px;
 }
+.answer input:hover {
+  background-color: #5D626E;
+}
 .answer input:checked {
   border: 2px solid #333;
   background-color: #333;
@@ -314,15 +324,23 @@ font-size: 2.3em;
 
 
 /* test */
+.leftnav{
+  display: flex;
+  align-items: center;
+  width: calc(50% + 140px);
+  justify-content: space-between;
+}
+.leftnav h2 {
+}
 .dropdown {
   float: left;
   overflow: hidden;
+  align-items: center;
 }
 .dropdown .dropbtn {
-  cursor: pointer;
+  display: flex;
   font-size: 16px;
   border: 2px solid black;
-  border-radius: 4px;
   outline: none;
   color: black;
   padding: 14px 16px;
@@ -330,7 +348,10 @@ font-size: 2.3em;
   font-family: inherit;
   margin: 0;
 }
-.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+.dropbtn h4 {
+  margin: 0 10px;
+}
+.dropdown:hover .dropbtn, .dropbtn:focus {
   background-color: #0053b9;
   color: white;
   border: 2px solid #0053b9;
@@ -338,24 +359,20 @@ font-size: 2.3em;
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #5D626E;
-  border-radius: 4px 4px 0 0;
-  min-width: 160px;
+  background-color: #0053b9;
   right: 0;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 .dropdown-content a {
   float: left;
-  color: black;
+  color: white;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
   text-align: left;
 }
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-.show {
+.dropdown:hover .dropdown-content {
   display: block;
+  margin: 0 25px 0 0;
 }

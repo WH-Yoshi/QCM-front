@@ -20,15 +20,19 @@ $_SESSION['Prenom'] = "admin";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/147d135573.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
-    <img class="logo" src="images/logo.png" alt="Logo Henallux">
-    <h2 id="nameofpage">QCM - Technologie WEB</h2>
+    <div class="leftnav">
+        <img class="logo" src="images/logo.png" alt="Logo Henallux">
+        <h2 id="nameofpage">QCM - Technologie WEB</h2>
+    </div>
     <div class="dropdown">
-        <button class="dropbtn" onclick="myFunction()">
+        <button type="button" class="dropbtn" onclick="myFunction()">
+            <i class="fa-solid fa-user"></i>
             <?php if (isset($_SESSION['Prenom'])) {
-                echo $_SESSION['Prenom'];
+                echo "<h4>" . $_SESSION['Prenom'] . "</h4>";
             } ?>
             <i class="fa fa-caret-down"></i>
         </button>

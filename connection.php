@@ -25,7 +25,7 @@ function error_message(){
 </head>
 
 <body>
-    <header>
+    <header id="page1header">
         <img class="logo" src="images/logo.png" alt="Logo Henallux" >
         <h2 id="nameofpage1">QCM - Technique WEB</h2>
     </header>
