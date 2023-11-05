@@ -1,32 +1,6 @@
 <?php
 session_start();
 require('./scripts/db.php');
-if (!isset($_SESSION['Identifiant'])) {
-    $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
-    header("Location: ./connection.php");
-    exit();
-}
-if (isset($_SESSION['examenID'])) {
-    $sql = "SELECT Etat FROM EXAMEN WHERE utilisateur_ID = :U_ID";
-    try {
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':U_ID', $_SESSION['utilisateurID']);
-        $stmt->execute();
-        $exam = $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        echo "Error coming from the database: " . $e->getMessage() . "<br>";
-    }
-    if ($exam['Etat'] == 'en cours') {
-        $sql = "DELETE FROM EXAMEN WHERE utilisateur_ID = :U_ID AND Etat = 'en cours'";
-        try {
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':U_ID', $_SESSION['utilisateurID']);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo "Error coming from the database: " . $e->getMessage() . "<br>";
-        }
-    }
-}
 function error_message(){
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];
@@ -54,7 +28,7 @@ function error_message(){
         <h2 id="nameofpage">QCM - Technologie WEB</h2>
     </div>
     <div class="dropdown">
-        <button type="button" class="dropbtn">
+        <button type="button" class="dropbtn" onclick="myFunction()">
             <i class="fa-solid fa-user"></i>
             <?php if (isset($_SESSION['Prenom'])) {
                 echo "<h4>" . $_SESSION['Prenom'] . "</h4>";
@@ -68,12 +42,12 @@ function error_message(){
 </header>
 <main>
     <section id="menu">
-        <h1>QCM : MENU</h1>
+        <h1>QCM : ADMIN PANEL</h1>
         <section id="panels">
             <article class="choices">
                 <div>
-                    <h2>Examen</h2>
-                    <p> L'examen que vous choisirez se composera de 10 questions choisies au hasard parmi les 20 du sujet étudié.</p>
+                    <h2></h2>
+                    <p></p>
                 </div>
                 <div>
                     <h4 class="error"><?php error_message();?></h4>

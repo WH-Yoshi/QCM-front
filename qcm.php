@@ -22,10 +22,10 @@ try {
     echo "Error coming from the database : " . $e->getMessage();
 }
 $_SESSION['examenID'] = $db->lastInsertId();
-$sql = "SELECT QUESTION.* FROM QUESTION JOIN QCM ON QUESTION.qcm_ID = QCM.qcmID WHERE QCM.Valeur = 'general' ORDER BY RAND() LIMIT 10";
+$sql = "SELECT * FROM QUESTION WHERE qcm_ID = :valeur ORDER BY RAND() LIMIT 10";
 try {
     $stmt = $db->prepare($sql);
-//    $stmt->bindParam(':Valeur', $exam);
+    $stmt->bindParam(':valeur', $exam);
     $stmt->execute();
     $questioncontentList = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -103,7 +103,7 @@ foreach ($questioncontentList as $question) {
                 foreach ($reponses as $index => $reponse) {
                     echo "<div class='answer'> <!-- Answers -->
                         <input required type='radio' name='{$question['questionID']}' id='q{$question['questionID']}a{$index}' value='{$reponse['reponseID']}'>
-                        <label for='q{$question['questionID']}a{$index}'>" . $reponse['Contenu'] . "</label></div>";
+                        <label for='q{$question['questionID']}a{$index}'>" . htmlspecialchars($reponse['Contenu']) . "</label></div>";
                 }
                 echo "<div class='answer'>
                     <input type='radio' name='{$question['questionID']}' id='q{$question['questionID']}noanswer' value='idk'>
