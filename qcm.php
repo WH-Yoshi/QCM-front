@@ -61,6 +61,7 @@ foreach ($questioncontentList as $question) {
     <script src="https://kit.fontawesome.com/147d135573.js" crossorigin="anonymous"></script>
 </head>
 <body class="longpage">
+<h3 id="timer"></h3>
 <header>
     <div class="leftnav">
         <img class="logo" src="images/logo.png" alt="Logo Henallux">
@@ -92,7 +93,7 @@ foreach ($questioncontentList as $question) {
             }
             echo "QCM : ".$examen['Titre']; ?>
         </h1>
-        <form class='form-qcm' method='post' action='scripts/exit.php'>
+        <form class='form-qcm' method='post' action='exit.php'>
             <?php foreach ($questioncontentList as $key => $question) {
                 echo "<fieldset class='question-boxes'>
                     <legend>Question " . ($key + 1) . "</legend>

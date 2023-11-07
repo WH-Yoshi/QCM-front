@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./db.php');
+require('./scripts/db.php');
 
 $total = 0;
 $userAnswer = array();
@@ -63,3 +63,57 @@ try {
     echo "Error coming from the database : " . $e->getMessage();
 }
 unset($_SESSION['examenID']);
+
+?>
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="author"
+          content="Luca Abs">
+    <title>Henallux QCM</title>
+    <link href="styles/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/147d135573.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="leftnav">
+        <img class="logo" src="images/logo.png" alt="Logo Henallux">
+        <h2 id="nameofpage">QCM - Technologie WEB</h2>
+    </div>
+    <div class="dropdown">
+        <button type="button" class="dropbtn">
+            <i class="fa-solid fa-user"></i>
+            <?php if (isset($_SESSION['Prenom'])) {
+                echo "<h4>" . $_SESSION['Prenom'] . "</h4>";
+            } ?>
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content" id="myDropdown">
+            <a href="./scripts/logout.php">Déconnexion</a>
+        </div>
+    </div>
+</header>
+<main>
+    <section id="resultat">
+        <h1>Les resultats ont bien été envoyés à la base de données</h1>
+        <h2>Votre score est de : <?php echo $total; ?>/10</h2>
+        <div id="redirect">
+            <p>Si vous voulez avoir plus d'informations</p>
+            <a href="./result.php">Cliquez ici</a>
+        </div>
+    </section>
+</main>
+<footer>
+    <img class="logo" src="images/logo.png" alt="Logo Henallux" >
+</footer>
+<script src="scripts/jscripts.js"></script>
+</body>
+</html>
