@@ -26,3 +26,22 @@ function updateTimer() {
 
 updateTimer();
 const timerInterval = setInterval(updateTimer, 1000);
+
+window.addEventListener('beforeunload', function (event) {
+    const message = "Vous perdrez toute progression. Continuer?";
+    event.returnValue = message;
+
+    fetch('scripts/logout.php', {
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            window.location.href = '../connection.php';
+        })
+        .catch(error => {
+            console.error('Erreur lors de la déconnexion :', error);
+        });
+});
+
+

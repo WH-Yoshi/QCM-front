@@ -6,7 +6,7 @@ if (!isset($_SESSION['Identifiant'])) {
     header("Location: ./connection.php");
     exit();
 }
-//require('./scripts/examcheck.php');
+require('./scripts/examcheck.php');
 function error_message(){
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];
