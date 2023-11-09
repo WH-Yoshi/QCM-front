@@ -10,14 +10,18 @@ if (isset($_SESSION['examenID'])) {
     } catch (PDOException $e) {
         echo "Error coming from the database: " . $e->getMessage() . "<br>";
     }
-    if ($exam['Etat'] == 'en cours') {
-        $sql = "DELETE FROM EXAMEN WHERE utilisateur_ID = :U_ID AND Etat = 'en cours'";
-        try {
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':U_ID', $_SESSION['utilisateurID']);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo "Error coming from the database: " . $e->getMessage() . "<br>";
+    if(empty($exam)){
+        return;
+    } else {
+        if ($exam['Etat'] == 'en cours') {
+            $sql = "DELETE FROM EXAMEN WHERE utilisateur_ID = :U_ID AND Etat = 'en cours'";
+            try {
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':U_ID', $_SESSION['utilisateurID']);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error coming from the database: " . $e->getMessage() . "<br>";
+            }
         }
     }
 }

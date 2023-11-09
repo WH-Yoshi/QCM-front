@@ -1,7 +1,6 @@
 
-const examDuration = 10 * 60; // Durée de l'examen en secondes (30 minutes)
+const examDuration = 10 * 60;
 
-// Vérifiez s'il existe déjà une valeur de temps restant dans le stockage local
 let remainingTime = localStorage.getItem('remainingTime');
 if (remainingTime === null) {
 remainingTime = examDuration;
@@ -25,5 +24,5 @@ function updateTimer() {
     }
 }
 
-updateTimer(); // Mettez à jour le timer lors du chargement de la page
-const timerInterval = setInterval(updateTimer, 1000); // Mettez à jour le timer chaque seconde
+updateTimer();
+const timerInterval = setInterval(updateTimer, 1000);
