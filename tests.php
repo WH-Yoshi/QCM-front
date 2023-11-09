@@ -1,18 +1,13 @@
 <?php
 session_start();
 require('./scripts/db.php');
-if (!isset($_SESSION['Identifiant'])) {
-    $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
-    header("Location: ./connection.php");
-    exit();
-}
-//require('./scripts/examcheck.php');
 function error_message(){
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];
         unset($_SESSION['message']);
     }
 }
+$_SESSION['Prenom'] = "admin";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -34,7 +29,7 @@ function error_message(){
         <h2 id="nameofpage">QCM - Technologie WEB</h2>
     </div>
     <div class="dropdown">
-        <button type="button" class="dropbtn">
+        <button type="button" class="dropbtn" onclick="myFunction()">
             <i class="fa-solid fa-user"></i>
             <?php if (isset($_SESSION['Prenom'])) {
                 echo "<h4>" . $_SESSION['Prenom'] . "</h4>";
@@ -57,17 +52,18 @@ function error_message(){
                 </div>
                 <div>
                     <h4 class="error"><?php error_message();?></h4>
-                    <form method="post" action="./qcm.php" class="custom-select">
+                    <form method="get" action="./qcm.php" class="custom-select">
                         <label for="examen">Sélectionner un examen :</label>
                         <article>
                             <select name="examen" id="examen">
                                 <option value="0" selected>--Choisir un examen--</option>
                                 <?php
                                 try {
-                                    $sql = "SELECT qcmID,Titre FROM QCM";
+                                    $sql = "SELECT Titre,Valeur FROM QCM";
                                     $stmt = $db->query($sql);
+
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "<option value='" . $row['qcmID'] . "'>" . $row['Titre'] . "</option>";
+                                        echo "<option value='" . $row['Valeur'] . "'>" . $row['Titre'] . "</option>";
                                     }
                                 } catch (PDOException $e) {
                                     echo "Erreur de connexion à la base de données : " . $e->getMessage();

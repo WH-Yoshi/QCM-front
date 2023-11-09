@@ -1,5 +1,6 @@
 <?php
 session_start();
+//require('./scripts/examcheck.php');
 function error_message(){
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];
@@ -25,11 +26,9 @@ function error_message(){
 </head>
 
 <body>
-    <header>
-        <nav>
-            <img class="logo" src="images/logo.png" alt="Logo Henallux" >
-            <h2>QCM - Technique WEB</h2>
-        </nav>
+    <header id="page1header">
+        <img class="logo" src="images/logo.png" alt="Logo Henallux" >
+        <h2 id="nameofpage1">QCM - Technique WEB</h2>
     </header>
     <main>
         <section id="connexion">
