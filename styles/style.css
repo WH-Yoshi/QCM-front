@@ -147,13 +147,13 @@ section#connexion form {
   font-size: 1em
 }
 
-input#button {
+input.button {
   color: #fff;
   font-weight: 600;
   cursor: pointer
 }
 
-input#button:hover {
+input.button:hover {
   background: #0056a2;
   text-decoration: none
 }

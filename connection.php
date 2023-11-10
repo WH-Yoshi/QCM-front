@@ -38,7 +38,7 @@ function error_message(){
                     <input type="text" required placeholder="Identifiant" name="Identifiant" id="Identifiant">
                     <input type="password" required placeholder="Mot de passe" name="Motdepasse" id="Motdepasse">
                     <h4 class="error"><?php error_message();?></h4>
-                    <input type="submit" value="Se connecter" id="button">
+                    <input type="submit" value="Se connecter" class="button">
                 </form>
             </article>
         </section>

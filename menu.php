@@ -74,7 +74,7 @@ function error_message(){
                                 }
                                 ?>
                             </select>
-                            <input type="submit" value="Commencer" id="button">
+                            <input type="submit" value="Commencer" class="button">
                         </article>
                     </form>
                 </div>
@@ -84,7 +84,7 @@ function error_message(){
                     <h2>Resultats</h2>
                     <p>Pour verifier les resultat après avoir fini l’examen appuyer ici</p>
                 </div>
-                <a href="./result.php" id="button">Resultats</a>
+                <a href="./result.php" class="button">Resultats</a>
             </article>
         </section>
     </section>

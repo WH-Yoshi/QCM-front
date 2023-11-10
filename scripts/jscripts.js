@@ -1,14 +1,11 @@
-
+/* Timer */
 const examDuration = 10 * 60;
-
 let remainingTime = localStorage.getItem('remainingTime');
 if (remainingTime === null) {
 remainingTime = examDuration;
 localStorage.setItem('remainingTime', remainingTime);
 }
-
 const timerElement = document.getElementById('timer');
-
 function updateTimer() {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
@@ -23,13 +20,19 @@ function updateTimer() {
         localStorage.setItem('remainingTime', remainingTime);
     }
 }
-
 updateTimer();
 const timerInterval = setInterval(updateTimer, 1000);
 
+const element = document.getElementById("myBtn");
+element.addEventListener("click", myFunction)
+
+function myFunction () {
+    clearInterval(timerInterval);
+}
+
+/* Before closing window */
 window.addEventListener('beforeunload', function (event) {
-    const message = "Vous perdrez toute progression. Continuer?";
-    event.returnValue = message;
+    event.returnValue = "Vous perdrez toute progression. Continuer?";
 
     fetch('scripts/logout.php', {
         method: 'POST'
