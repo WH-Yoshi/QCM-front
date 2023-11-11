@@ -1,7 +1,16 @@
 <?php
 session_start();
 require('./scripts/db.php');
-
+/*if (!isset($_SESSION['identifiant'])) {
+    $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
+    header("Location: ./connection.php");
+    exit();
+}
+if ($_SESSION['examChoice'] == 0) {
+    $_SESSION['message'] = "Vous devez choisir un examen";
+    header("Location: ./menu.php");
+    exit();
+}*/
 $total = 0;
 $userAnswer = array();
 $alluserAnswer = array();
@@ -103,12 +112,21 @@ unset($_SESSION['examenID']);
 </header>
 <main>
     <section id="resultat">
-        <h1>Les resultats ont bien été envoyés à la base de données</h1>
-        <h2>Votre score est de : <?php echo $total; ?>/10</h2>
-        <div id="redirect">
-            <p>Si vous voulez avoir plus d'informations</p>
-            <a href="./result.php">Cliquez ici</a>
-        </div>
+        <h1>Le resultat ont bien été envoyés à la base de données</h1>
+        <fieldset class="question-boxes">
+            <legend>Resultat</legend>
+            <div>
+                <h1><?php echo $_SESSION['Prenom'] ?></h1>
+                <h2>Utilisateur : <?php echo $_SESSION['identifiant'] ?> </h2>
+            </div>
+            <div id="redirect">
+                <h2><?php echo $total; ?>/10</h2>
+                <script src="scripts/exitscript.js"></script>
+                <h2><?php echo "ui" ?></h2>
+                <p>Si vous voulez avoir plus d'informations</p>
+                <a href="./result.php">Cliquez ici</a>
+            </div>
+        </fieldset>
     </section>
 </main>
 <footer>

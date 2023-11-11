@@ -1,13 +1,13 @@
 <?php
 session_start();
 require('./scripts/db.php');
-if (!isset($_SESSION['Identifiant'])) {
+if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
     header("Location: ./connection.php");
     exit();
 }
-$exam = $_POST['examen'];
-if ($exam == 0) {
+$_SESSION['examChoice'] = $_POST['examen'];
+if ($_SESSION['examChoice'] == 0) {
     $_SESSION['message'] = "Vous devez choisir un examen";
     header("Location: ./menu.php");
     exit();

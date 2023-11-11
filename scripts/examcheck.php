@@ -26,3 +26,8 @@ if (isset($_SESSION['examenID'])) {
         }
     }
 }
+echo "<script src='jscripts.js'>
+    myFunction();
+    </script>";
+echo json_encode(['message' => 'Déconnexion réussie']);
+

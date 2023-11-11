@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('./scripts/db.php');
-if (!isset($_SESSION['Identifiant'])) {
+if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
     header("Location: ./connection.php");
     exit();
@@ -92,6 +92,5 @@ function error_message(){
 <footer>
     <img class="logo" src="images/logo.png" alt="Logo Henallux" >
 </footer>
-<script src="scripts/jscripts.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('./scripts/db.php');
-if (!isset($_SESSION['Identifiant'])) {
+if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
     header("Location: ./connection.php");
     exit();

@@ -1,11 +1,12 @@
 /* Timer */
+const timerElement = document.getElementById('timer');
+const timerInterval = setInterval(updateTimer, 1000);
 const examDuration = 10 * 60;
 let remainingTime = localStorage.getItem('remainingTime');
 if (remainingTime === null) {
-remainingTime = examDuration;
-localStorage.setItem('remainingTime', remainingTime);
+    remainingTime = examDuration;
+    localStorage.setItem('remainingTime', remainingTime);
 }
-const timerElement = document.getElementById('timer');
 function updateTimer() {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
@@ -20,31 +21,26 @@ function updateTimer() {
         localStorage.setItem('remainingTime', remainingTime);
     }
 }
+
 updateTimer();
-const timerInterval = setInterval(updateTimer, 1000);
-
 const element = document.getElementById("myBtn");
-element.addEventListener("click", myFunction)
-
+if (element) {
+    element.addEventListener("click", myFunction)
+}
 function myFunction () {
     clearInterval(timerInterval);
+    localStorage.removeItem('remainingTime');
 }
 
 /* Before closing window */
 window.addEventListener('beforeunload', function (event) {
-    event.returnValue = "Vous perdrez toute progression. Continuer?";
+    event.returnValue = "Vous perdrez toute progression. Continuer ?";
 
-    fetch('scripts/logout.php', {
+    fetch('scripts/examcheck.php', {
         method: 'POST'
     })
         .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            window.location.href = '../connection.php';
-        })
         .catch(error => {
             console.error('Erreur lors de la déconnexion :', error);
         });
 });
-
-

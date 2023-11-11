@@ -29,7 +29,7 @@ try {
 }
 
 if (password_verify($mdp, $resultats['Motdepasse'])) {
-    $_SESSION['Identifiant'] = $identifiant;
+    $_SESSION['identifiant'] = $identifiant;
     $_SESSION['userID'] = $resultats['utilisateurID'];
     $_SESSION['Role'] = $resultats['Role'];
     $_SESSION['Prenom'] = $resultats['Prenom'];
