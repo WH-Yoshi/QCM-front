@@ -1,13 +1,13 @@
 <?php
 session_start();
-require('./scripts/db.php');
+$db = require('./scripts/db.php');
 if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
     header("Location: ./connection.php");
     exit();
 }
-$_SESSION['examChoice'] = $_POST['examen'];
-if ($_SESSION['examChoice'] == 0) {
+$_SESSION['examChoiceID'] = $_POST['examenID'];
+if ($_SESSION['examChoiceID'] == 0) {
     $_SESSION['message'] = "Vous devez choisir un examen";
     header("Location: ./menu.php");
     exit();
@@ -16,7 +16,7 @@ $sql = "INSERT INTO EXAMEN (utilisateur_ID, qcm_ID, Etat, Resultat) VALUES (:U_I
 try {
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':U_ID', $_SESSION['userID']);
-    $stmt->bindParam(':QCM_ID', $exam);
+    $stmt->bindParam(':QCM_ID', $_SESSION['examChoiceID']);
     $stmt->execute();
 } catch (PDOException $e) {
     echo "Error coming from the database : " . $e->getMessage();
@@ -25,7 +25,7 @@ $_SESSION['examenID'] = $db->lastInsertId();
 $sql = "SELECT * FROM QUESTION WHERE qcm_ID = :valeur ORDER BY RAND() LIMIT 10";
 try {
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':valeur', $exam);
+    $stmt->bindParam(':valeur', $_SESSION['examChoiceID']);
     $stmt->execute();
     $questioncontentList = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -83,12 +83,13 @@ foreach ($questioncontentList as $question) {
 </header>
 <main>
     <section id="qcm-exam">
-        <h1><?php $sql = "SELECT Titre FROM QCM WHERE Valeur = 'general';";
+        <h1><?php $sql = "SELECT Titre FROM QCM WHERE qcmID = :Valeur;";
             try {
                 $stmt = $db->prepare($sql);
-//    $stmt->bindParam(':Valeur', $exam);
+                $stmt->bindParam(':Valeur', $_SESSION['examChoiceID']);
                 $stmt->execute();
                 $examen = $stmt->fetch();
+                $_SESSION['examTitle'] = $examen['Titre'];
             } catch (PDOException $e) {
                 echo "Error coming from the database : " . $e->getMessage();
             }

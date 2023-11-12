@@ -1,5 +1,5 @@
 <?php
-require('db.php');
+$db = require('db.php');
 
 if (isset($_SESSION['examenID'])) {
     $sql = "SELECT Etat FROM EXAMEN WHERE utilisateur_ID = :U_ID";
@@ -26,8 +26,6 @@ if (isset($_SESSION['examenID'])) {
         }
     }
 }
-echo "<script src='jscripts.js'>
-    myFunction();
-    </script>";
-echo json_encode(['message' => 'Déconnexion réussie']);
+echo '<script src="../scripts/exitscript.js">removeRemainingTime()</script>';
+
 

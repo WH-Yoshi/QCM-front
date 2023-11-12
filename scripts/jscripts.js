@@ -15,19 +15,29 @@ function updateTimer() {
 
     if (remainingTime <= 0) {
         clearInterval(timerInterval);
-        timerElement.textContent = "Temps écoulé, les options non choisies seront prises en compte comme 'Je ne sais pas'";
+        timerElement.textContent = "Temps écoulé !";
+        disablePageInteractions();
     } else {
         remainingTime--;
         localStorage.setItem('remainingTime', remainingTime);
     }
 }
+function disablePageInteractions() {
+    const elements = document.getElementsByTagName('input');
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].disabled = true;
+    }
+    const element = document.getElementById('myBtn');
+    if (element) {
+        element.disabled = true;
+    }
+}
 
 updateTimer();
-const element = document.getElementById("myBtn");
-if (element) {
-    element.addEventListener("click", myFunction)
-}
-function myFunction () {
+const element = document.getElementById("endqcm");
+element.addEventListener("click", clearTimer);
+
+function clearTimer () {
     clearInterval(timerInterval);
     localStorage.removeItem('remainingTime');
 }

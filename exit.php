@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./scripts/db.php');
+$db = require('./scripts/db.php');
 /*if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
     header("Location: ./connection.php");
@@ -115,13 +115,19 @@ unset($_SESSION['examenID']);
         <h1>Le resultat ont bien été envoyés à la base de données</h1>
         <fieldset class="question-boxes">
             <legend>Resultat</legend>
-            <div>
-                <h1><?php echo $_SESSION['Prenom'] ?></h1>
-                <h2>Utilisateur : <?php echo $_SESSION['identifiant'] ?> </h2>
+            <div id="qcmUserPart">
+                <div id="userPart">
+                    <h1><?php echo $_SESSION['Prenom'] ?></h1>
+                    <h2>Utilisateur : <?php echo "<i>".$_SESSION['identifiant']."</i>" ?> </h2>
+                </div>
+                <aside>
+                    <h3>Exam :</h3>
+                    <h2><?php echo $_SESSION['examTitle'] ?></h2>
+                </aside>
             </div>
             <div id="redirect">
                 <h2><?php echo $total; ?>/10</h2>
-                <script src="scripts/exitscript.js"></script>
+                <script src="scripts/.js"></script>
                 <h2><?php echo "ui" ?></h2>
                 <p>Si vous voulez avoir plus d'informations</p>
                 <a href="./result.php">Cliquez ici</a>
@@ -132,6 +138,6 @@ unset($_SESSION['examenID']);
 <footer>
     <img class="logo" src="images/logo.png" alt="Logo Henallux" >
 </footer>
-<script src="scripts/jscripts.js"></script>
+<script src="scripts/exitscript.js"></script>
 </body>
 </html>

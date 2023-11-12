@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./db.php');
+$db = require('./db.php');
 
 if (!isset($_POST['Identifiant']) || !isset($_POST['Motdepasse']))
 {

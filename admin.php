@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./scripts/db.php');
+$db = require('./scripts/db.php');
 function error_message(){
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];

@@ -383,7 +383,7 @@ section#resultat fieldset.question-boxes h1 {
   text-align: left;
   margin-top: 0;
   font-weight: 400;
-  font-size: 1.7em;
+  font-size: 1.9em;
 }
 section#resultat fieldset.question-boxes h2 {
   text-align: left;
@@ -393,13 +393,42 @@ section#resultat fieldset.question-boxes h2 {
 section#resultat fieldset.question-boxes h2 {
   color: #fff;
 }
-section#resultat div#redirect {
+section#resultat fieldset.question-boxes div {
+  width: 50%;
+}
+section#resultat fieldset.question-boxes div#qcmUserPart {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  justify-content: space-between;
+}
+section#resultat fieldset.question-boxes div#qcmUserPart h2 {
+  text-align: left;
+  margin-top: 0;
+  font-weight: 400;
+  font-size: 1.9em;
+}
+section#resultat fieldset.question-boxes div#qcmUserPart h3 {
+  color: white;
+  font-weight: 500;
+}
+section#resultat fieldset.question-boxes div#userPart h1 {
+  text-align: left;
+  margin-top: 0;
+  font-weight: 600;
+  font-size: 2.1em;
+  color: #efef46;
+}
+section#resultat fieldset.question-boxes div#userPart h2 {
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.8em;
+}
+section#resultat fieldset.question-boxes div#redirect {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
-section#resultat div#redirect h2 {
+section#resultat fieldset.question-boxes div#redirect h2 {
   text-align: right;
   font-weight: 500;
   font-size: 2em;

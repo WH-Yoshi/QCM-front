@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./scripts/db.php');
+$db = require('./scripts/db.php');
 if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
     header("Location: ./connection.php");
@@ -60,7 +60,7 @@ function error_message(){
                     <form method="post" action="./qcm.php" class="custom-select">
                         <label for="examen">Sélectionner un examen :</label>
                         <article>
-                            <select name="examen" id="examen">
+                            <select name="examenID" id="examen">
                                 <option value="0" selected>--Choisir un examen--</option>
                                 <?php
                                 try {
