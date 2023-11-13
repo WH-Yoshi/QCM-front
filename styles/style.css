@@ -194,11 +194,11 @@ article.choices {
   justify-content: space-between;
   padding: 30px;
   border-radius: 4px;
-  box-shadow: 0 15px 35px #000
+  box-shadow: 0 15px 35px #000;
 }
 
 article.choices div {
-  width: 100%
+  width: 100%;
 }
 
 article.choices h2 {
@@ -211,7 +211,8 @@ article.choices p {
   color: #000;
   font-weight: 400;
   font-size: larger;
-  margin-top: 10px
+  margin-top: 10px;
+  width: 100%
 }
 
 article.choices h4.error {
@@ -396,10 +397,17 @@ section#resultat fieldset.question-boxes h2 {
 section#resultat fieldset.question-boxes div {
   width: 50%;
 }
+section#resultat fieldset.question-boxes a {
+  color: #efef46;
+}
+section#resultat fieldset.question-boxes a:hover {
+  color: #000;
+}
 section#resultat fieldset.question-boxes div#qcmUserPart {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 20px;
 }
 section#resultat fieldset.question-boxes div#qcmUserPart h2 {
   text-align: left;
@@ -426,14 +434,42 @@ section#resultat fieldset.question-boxes div#userPart h2 {
 section#resultat fieldset.question-boxes div#redirect {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-between;
+  text-align: right;
+  color: white;
 }
 section#resultat fieldset.question-boxes div#redirect h2 {
   text-align: right;
   font-weight: 500;
   font-size: 2em;
 }
+section#resultat fieldset.question-boxes div#redirect p {
+  margin-bottom: 3px;
+}
 
+/*RESULT*/
+main#results h1 {
+  margin-top: 60px;
+}
+section#qcm-result {
+  width: 100%;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 20px;
+  margin-top: 40px;
+}
+section#qcm-result div.result {
+  width: 45%;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
+}
 
 
 

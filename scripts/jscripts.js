@@ -41,16 +41,3 @@ function clearTimer () {
     clearInterval(timerInterval);
     localStorage.removeItem('remainingTime');
 }
-
-/* Before closing window */
-window.addEventListener('beforeunload', function (event) {
-    event.returnValue = "Vous perdrez toute progression. Continuer ?";
-
-    fetch('scripts/examcheck.php', {
-        method: 'POST'
-    })
-        .then(response => response.json())
-        .catch(error => {
-            console.error('Erreur lors de la déconnexion :', error);
-        });
-});

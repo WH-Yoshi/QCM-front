@@ -1,16 +1,16 @@
 <?php
 session_start();
 $db = require('./scripts/db.php');
-/*if (!isset($_SESSION['identifiant'])) {
+if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
     header("Location: ./connection.php");
     exit();
 }
-if ($_SESSION['examChoice'] == 0) {
+if ($_SESSION['examChoiceID'] == 0) {
     $_SESSION['message'] = "Vous devez choisir un examen";
     header("Location: ./menu.php");
     exit();
-}*/
+}
 $total = 0;
 $userAnswer = array();
 $alluserAnswer = array();
@@ -72,7 +72,6 @@ try {
     echo "Error coming from the database : " . $e->getMessage();
 }
 unset($_SESSION['examenID']);
-
 ?>
 <!doctype html>
 <html lang="fr">
@@ -118,7 +117,7 @@ unset($_SESSION['examenID']);
             <div id="qcmUserPart">
                 <div id="userPart">
                     <h1><?php echo $_SESSION['Prenom'] ?></h1>
-                    <h2>Utilisateur : <?php echo "<i>".$_SESSION['identifiant']."</i>" ?> </h2>
+                    <h2>Utilisateur : <?php echo "<a href='./result.php'><i>".$_SESSION['identifiant']."</i></a>" ?> </h2>
                 </div>
                 <aside>
                     <h3>Exam :</h3>
@@ -127,10 +126,12 @@ unset($_SESSION['examenID']);
             </div>
             <div id="redirect">
                 <h2><?php echo $total; ?>/10</h2>
-                <script src="scripts/.js"></script>
-                <h2><?php echo "ui" ?></h2>
-                <p>Si vous voulez avoir plus d'informations</p>
-                <a href="./result.php">Cliquez ici</a>
+                <h3><?php if($total >= 5){
+                        echo "Vous avez réussi l'examen !";
+                    } else {
+                        echo "Vous avez raté l'examen...";
+                    } ?></h3>
+                <p><a href="./result.php">Appuyez ici</a> pour plus d'informations</p>
             </div>
         </fieldset>
     </section>

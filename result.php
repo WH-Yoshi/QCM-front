@@ -1,11 +1,12 @@
 <?php
 session_start();
 $db = require('./scripts/db.php');
-if (!isset($_SESSION['identifiant'])) {
+/*if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
     header("Location: ./connection.php");
     exit();
-}
+}*/
+
 // This code going to get each exam the user has done
 $sql = "SELECT e.examenID,e.Resultat,e.qcm_ID,q.Titre FROM EXAMEN AS e JOIN QCM as q ON e.qcm_ID=q.qcmID WHERE e.utilisateur_ID = :U_ID";
 try {
@@ -16,27 +17,33 @@ try {
 } catch (PDOException $e) {
     echo "Error coming from the database : " . $e->getMessage();
 }
-function getAllExams() {
+if (empty($userExams)) {
+    $_SESSION['message'] = "Vous n'avez pas encore fait d'examen";
+    header("Location: ./menu.php");
+    exit();
+}
 // This code is going to get each choice the user has done
+$userChoices = array();
 foreach ($userExams as $exam) {
     $sql = "SELECT * FROM CHOIX_UTILISATEUR WHERE examen_ID = :examen_ID;";
     try {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':examen_ID', $exam['examenID']);
         $stmt->execute();
-        $userChoices = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
+        $userChoice = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
+        $userChoices[$exam['examenID']] = $userChoice;
     } catch (PDOException $e) {
         echo "Error coming from the database : " . $e->getMessage();
     }
-
-    // Count how many good, bad and 'idk' answers the user has done
-    $goodAnswer = 0;
-    $badAnswer = 0;
-    $idkAnswer = 0;
-    foreach ($userChoices as $choice) {
-        if ($choice['isCorrect'] == 1) {
+}
+$goodAnswer = 0;
+$badAnswer = 0;
+$idkAnswer = 0;
+foreach ($userChoices as $choice) {
+    foreach ($choice as $answer) {
+        if ($answer['isCorrect'] == 1) {
             $goodAnswer++;
-        } elseif ($choice['isCorrect'] == 0 && $choice['reponse_ID'] != null) {
+        } elseif ($answer['isCorrect'] == 0) {
             $badAnswer++;
         } else {
             $idkAnswer++;
@@ -44,9 +51,6 @@ foreach ($userExams as $exam) {
     }
 }
 
-    //
-
-}
 
 
 
@@ -88,36 +92,18 @@ foreach ($userExams as $exam) {
         </div>
     </div>
 </header>
-    <main>
-        <section class="qcm-result">
-            <article>
-                <h2>Résultats</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Examen</th>
-                            <th>Score</th>
-                            <th>Nombre de bonnes réponses</th>
-                            <th>Nombre de mauvaises réponses</th>
-                            <th>Nombre de réponses non répondues</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($userExams as $exam) {
-                            echo "<tr>";
-                            echo "<td>" . $exam['nom'] . "</td>";
-                            echo "<td>" . $exam['score'] . "</td>";
-                            echo "<td>" . $exam['nb_bonnes_reponses'] . "</td>";
-                            echo "<td>" . $exam['nb_mauvaises_reponses'] . "</td>";
-                            echo "<td>" . $exam['nb_reponses_non_repondues'] . "</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </article>
-        </section>       
+    <main id="results">
+        <h1>Résultats de <?php echo $_SESSION['identifiant'] ?></h1>
+        <section id="qcm-result">
+            <?php
+            foreach ($userExams as $exam) {
+                echo '<div class="result">';
+                echo '<h3>' . htmlspecialchars($exam['Titre']) . '</h3>';
+                echo '<p>Vous avez obtenu ' . $exam['Resultat'] . '/10</p>';
+                echo '</div>';
+            }
+            ?>
+        </section>
     </main>
     <footer>
         <img class="logo" src="images/logo.png" alt="Logo Henallux" >

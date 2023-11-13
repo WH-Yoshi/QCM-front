@@ -1,6 +1,5 @@
 <?php
 session_start();
-require('./scripts/examcheck.php');
 function error_message(){
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];

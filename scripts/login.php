@@ -37,8 +37,9 @@ if (password_verify($mdp, $resultats['Motdepasse'])) {
         header('Location: ../admin.php');
     } elseif ($_SESSION['Role'] == "prof") {
         header('Location: ../prof.php');
+    } else {
+        header('Location: ../menu.php');
     }
-    header('Location: ../menu.php');
 } else {
     $_SESSION['message'] = "Identifiant ou mot de passe invalide";
     header('Location: ../connection.php');
