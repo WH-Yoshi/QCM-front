@@ -22,6 +22,21 @@ if (empty($userExams)) {
     header("Location: ./menu.php");
     exit();
 }
+// This ocde is going to check if an exam is 'en cours'
+foreach ($userExams as $Exam) {
+    if ($Exam['Resultat'] == null) {
+        $sql = "UPDATE `EXAMEN` SET `Etat` = 'fini', `Resultat` = '0' WHERE `EXAMEN`.`examenID` = :examenID;";
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':examenID', $Exam['examenID']);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error coming from the database : " . $e->getMessage();
+        }
+//        $Exam['Resultat'] = 0;
+    }
+}
+
 // This code is going to get each choice the user has done
 $userChoices = array();
 foreach ($userExams as $exam) {

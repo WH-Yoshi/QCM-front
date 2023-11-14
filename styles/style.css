@@ -448,6 +448,10 @@ section#resultat fieldset.question-boxes div#redirect p {
 }
 
 /*RESULT*/
+main#results {
+  display: flex;
+  justify-content: flex-start;
+}
 main#results h1 {
   margin-top: 60px;
 }
@@ -457,11 +461,12 @@ section#qcm-result {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: flex-start;
   padding: 20px;
   margin-top: 40px;
 }
 section#qcm-result div.result {
+  display: flex;
+  flex-direction: column;
   width: 45%;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -469,6 +474,7 @@ section#qcm-result div.result {
   padding: 20px;
   box-sizing: border-box;
   color: white;
+  gap: 20px;
 }
 
 
