@@ -22,21 +22,20 @@ if (empty($userExams)) {
     header("Location: ./menu.php");
     exit();
 }
-// This ocde is going to check if an exam is 'en cours'
-foreach ($userExams as $Exam) {
-    if ($Exam['Resultat'] == null) {
-        $sql = "UPDATE `EXAMEN` SET `Etat` = 'fini', `Resultat` = '0' WHERE `EXAMEN`.`examenID` = :examenID;";
+// This code is going to check if an exam is 'en cours'
+foreach ($userExams as &$Exam) {
+    if ($Exam['Resultat'] == 'null') {
+        $sql = "UPDATE EXAMEN SET Etat = 'fini', Resultat = '0' WHERE utilisateur_ID = :user;";
         try {
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':examenID', $Exam['examenID']);
+            $stmt->bindParam(':user', $_SESSION['userID']);
             $stmt->execute();
+            $Exam['Resultat'] = '0';
         } catch (PDOException $e) {
             echo "Error coming from the database : " . $e->getMessage();
         }
-//        $Exam['Resultat'] = 0;
     }
 }
-
 // This code is going to get each choice the user has done
 $userChoices = array();
 foreach ($userExams as $exam) {
@@ -65,12 +64,6 @@ foreach ($userChoices as $choice) {
         }
     }
 }
-
-
-
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -112,17 +105,20 @@ foreach ($userChoices as $choice) {
         <section id="qcm-result">
             <?php
             foreach ($userExams as $exam) {
-                echo '<div class="result">';
-                echo '<h3>' . htmlspecialchars($exam['Titre']) . '</h3>';
-                echo '<p>Vous avez obtenu ' . $exam['Resultat'] . '/10</p>';
-                echo '</div>';
+                echo '<div class="result">
+                <div>
+                    <h3>' . htmlspecialchars($exam['Titre']) . '</h3>
+                    <p>Vous avez obtenu ' . $exam['Resultat'] . '/10</p>
+                </div>
+                <a href="./result.php?examID=' . $exam['examenID'] . '">Voir les détails</a>
+                </div>';
             }
+            print_r($userExams);
             ?>
         </section>
     </main>
     <footer>
         <img class="logo" src="images/logo.png" alt="Logo Henallux" >
     </footer>
-    <script src="scripts/jscripts.js"></script>
 </body>
 </html>

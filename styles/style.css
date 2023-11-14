@@ -266,6 +266,10 @@ article.choices a {
   color: #fff;
   text-align: center
 }
+article.choices a:hover {
+  background: #0056a2;
+  text-decoration: none
+}
 /*QCM*/
 body.longpage {
   height: auto
@@ -466,15 +470,20 @@ section#qcm-result {
 }
 section#qcm-result div.result {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   width: 45%;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border-radius: 8px;
   border: 2px solid #fff;
   padding: 20px;
   box-sizing: border-box;
   color: white;
-  gap: 20px;
+}
+section#qcm-result div.result a {
+  color: #efef46;
+}
+section#qcm-result div.result a:hover {
+  color: #000;
 }
 
 
