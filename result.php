@@ -39,7 +39,7 @@ foreach ($userExams as &$Exam) {
 // This code is going to get each choice the user has done
 $userChoices = array();
 foreach ($userExams as $exam) {
-    $sql = "SELECT * FROM CHOIX_UTILISATEUR WHERE examen_ID = :examen_ID;";
+    $sql = "SELECT isCorrect,examen_ID,reponse_ID FROM CHOIX_UTILISATEUR WHERE examen_ID = :examen_ID;";
     try {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':examen_ID', $exam['examenID']);
@@ -50,21 +50,25 @@ foreach ($userExams as $exam) {
         echo "Error coming from the database : " . $e->getMessage();
     }
 }
-$goodAnswer = 0;
-$badAnswer = 0;
-$idkAnswer = 0;
-foreach ($userChoices as $choice) {
-    foreach ($choice as $answer) {
-        if ($answer['isCorrect'] == 1) {
-            $goodAnswer++;
-        } elseif ($answer['isCorrect'] == 0) {
-            $badAnswer++;
+$choiceAnswers = array();
+foreach ($userChoices as $userChoice) {
+    $idkAnswers = 0;
+    $goodAnswers = 0;
+    $badAnswers = 0;
+    foreach ($userChoice as $item) {
+        if ($item['isCorrect'] == 0 && $item['reponse_ID'] == null) {
+            $idkAnswers++;
+            $choiceAnswers[$item['examen_ID']] = array(array('idkAnswers' => $idkAnswers));
+        } elseif ($item['isCorrect'] == 0) {
+            $badAnswers++;
+            $choiceAnswers[$item['examen_ID']] = array(array('badAnswers' => $badAnswers));
         } else {
-            $idkAnswer++;
+            $goodAnswers++;
+            $choiceAnswers[$item['examen_ID']] = array(array('goodAnswers' => $goodAnswers));
         }
     }
 }
-
+print_r($choiceAnswers);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -110,10 +114,11 @@ foreach ($userChoices as $choice) {
                     <h3>' . htmlspecialchars($exam['Titre']) . '</h3>
                     <p>Vous avez obtenu ' . $exam['Resultat'] . '/10</p>
                 </div>
+                <p>Bonnes reponses : </p>
+                
                 <a href="./result.php?examID=' . $exam['examenID'] . '">Voir les détails</a>
                 </div>';
             }
-            print_r($userExams);
             ?>
         </section>
     </main>

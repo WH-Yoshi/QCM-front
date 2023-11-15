@@ -479,6 +479,11 @@ section#qcm-result div.result {
   box-sizing: border-box;
   color: white;
 }
+section#qcm-result div.result div {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 section#qcm-result div.result a {
   color: #efef46;
 }
