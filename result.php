@@ -6,7 +6,6 @@ $db = require('./scripts/db.php');
     header("Location: ./connection.php");
     exit();
 }*/
-
 // This code going to get each exam the user has done
 $sql = "SELECT e.examenID,e.Resultat,e.qcm_ID,q.Titre FROM EXAMEN AS e JOIN QCM as q ON e.qcm_ID=q.qcmID WHERE e.utilisateur_ID = :U_ID";
 try {
@@ -38,18 +37,28 @@ foreach ($userExams as &$Exam) {
 }
 // This code is going to get each choice the user has done
 $userChoices = array();
+
 foreach ($userExams as $exam) {
-    $sql = "SELECT isCorrect,examen_ID,reponse_ID FROM CHOIX_UTILISATEUR WHERE examen_ID = :examen_ID;";
+    $sql = "SELECT isCorrect, examen_ID, reponse_ID FROM CHOIX_UTILISATEUR WHERE examen_ID = :examen_ID;";
     try {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':examen_ID', $exam['examenID']);
         $stmt->execute();
         $userChoice = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
-        $userChoices[$exam['examenID']] = $userChoice;
+
+        // Si des résultats sont trouvés, mettez-les dans l'array
+        if (!empty($userChoice)) {
+            $userChoices[$exam['examenID']] = $userChoice;
+        } else {
+            // Si aucun résultat n'est trouvé, répétez les valeurs par défaut
+            $userChoices[$exam['examenID']] = array_fill(0, 10, array('isCorrect' => 0, 'examen_ID' => $exam['examenID'], 'reponse_ID' => null));
+        }
     } catch (PDOException $e) {
         echo "Error coming from the database : " . $e->getMessage();
     }
 }
+
+
 $choiceAnswers = array();
 foreach ($userChoices as $userChoice) {
     $idkAnswers = 0;
@@ -58,17 +67,14 @@ foreach ($userChoices as $userChoice) {
     foreach ($userChoice as $item) {
         if ($item['isCorrect'] == 0 && $item['reponse_ID'] == null) {
             $idkAnswers++;
-            $choiceAnswers[$item['examen_ID']] = array(array('idkAnswers' => $idkAnswers));
         } elseif ($item['isCorrect'] == 0) {
             $badAnswers++;
-            $choiceAnswers[$item['examen_ID']] = array(array('badAnswers' => $badAnswers));
         } else {
             $goodAnswers++;
-            $choiceAnswers[$item['examen_ID']] = array(array('goodAnswers' => $goodAnswers));
         }
+        $choiceAnswers[$item['examen_ID']] = array('idk' => $idkAnswers, 'good' => $goodAnswers, 'bad' => $badAnswers);
     }
 }
-print_r($choiceAnswers);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -110,13 +116,16 @@ print_r($choiceAnswers);
             <?php
             foreach ($userExams as $exam) {
                 echo '<div class="result">
-                <div>
+                <div id="onleft">
                     <h3>' . htmlspecialchars($exam['Titre']) . '</h3>
                     <p>Vous avez obtenu ' . $exam['Resultat'] . '/10</p>
                 </div>
-                <p>Bonnes reponses : </p>
-                
-                <a href="./result.php?examID=' . $exam['examenID'] . '">Voir les détails</a>
+                <div id="onright">
+                    <p>Bonnes reponses : ' . $choiceAnswers[$exam['examenID']]['good'] . '</p>
+                    <p>Mauvaises reponses : ' . $choiceAnswers[$exam['examenID']]['bad'] . '</p>
+                    <p>Questions non repondues : ' . $choiceAnswers[$exam['examenID']]['idk'] . '</p>
+                    <p class="next"><a href="./details.php?examID=' . $exam['examenID'] . '">Voir les détails</a></p>
+                </div>
                 </div>';
             }
             ?>
