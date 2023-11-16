@@ -117,7 +117,7 @@ foreach ($questioncontentList as $question) {
                 </fieldset>";
             }
             ?>
-            <input type="submit" value="Valider mes réponses" class="button" id="endqcm">
+            <input type="submit" class="button" id="endqcm">
         </form>
     </section>
 </main>

@@ -501,14 +501,60 @@ section#qcm-result div.result a {
 section#qcm-result div.result a:hover {
   background-color: #004684;
 }
+/* DETAILS */
+section#details-exam {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+section#details-exam h1 {
+  font-size: 2.3em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 30px 0
+}
+fieldset.question-boxes {
+  width: 66%;
+  margin: 25px;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  padding: 20px;
+  color: white;
+}
+fieldset.question-boxes legend {
+  background-color: #fff;
+  color: #333;
+  font-size: 1.2em;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 2px 5px;
+  margin: 0 10px
+}
+section#details-exam h4 {
+  margin-bottom: 10px;
+  font-size: 1.4em;
+  font-weight: 400
+}
+fieldset.question-boxes div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+fieldset.question-boxes div .fa-solid {
+  font-size: 1.5em;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 0 3px;
+}
+fieldset.question-boxes h5 {
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.5em;
+}
 
 
 
-
-
-
-
-/* test */
+/* DROPDOWN */
 .leftnav {
   display: flex;
   align-items: center;
