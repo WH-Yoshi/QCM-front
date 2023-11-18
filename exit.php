@@ -61,12 +61,12 @@ foreach ($_POST as $key => $value) {
         echo "Error coming from the database : " . $e->getMessage();
     }
 }
-
-$sql = "UPDATE EXAMEN SET Etat = 'fini',Resultat = :resultat WHERE EXAMEN.examenID = :examID;";
+echo $total;
+$sql = "UPDATE EXAMEN SET Etat = 'fini', Resultat = :resultat WHERE EXAMEN.examenID = :examID;";
 try {
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':examID', $_SESSION['examenID']);
     $stmt->bindParam(':resultat', $total);
+    $stmt->bindParam(':examID', $_SESSION['examenID']);
     $stmt->execute();
 } catch (PDOException $e) {
     echo "Error coming from the database : " . $e->getMessage();
@@ -126,7 +126,7 @@ unset($_SESSION['examenID']);
             </div>
             <div id="redirect">
                 <h2><?php echo $total; ?>/10</h2>
-                <h3><?php if($total >= 5){
+                <h3><?php if($total >= round($_SESSION['NbQuestions']/2)){
                         echo "Vous avez réussi l'examen !";
                     } else {
                         echo "Vous avez raté l'examen...";

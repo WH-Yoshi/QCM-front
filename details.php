@@ -12,11 +12,11 @@ if (!isset($_SESSION['identifiant'])) {
     exit();
 }
 // this code will show the 10 questions and the answers chosen by the user, and show also the right answer
-$examID = $_GET['examID'];
+$_SESSION['examID'] = $_GET['examID'];
 $sql = "SELECT q.Titre FROM EXAMEN AS e JOIN QCM as q ON e.qcm_ID=q.qcmID WHERE e.examenID = :examID;";
 try {
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':examID', $examID);
+    $stmt->bindParam(':examID', $_SESSION['examID']);
     $stmt->execute();
     $examTitle = $stmt->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -25,7 +25,7 @@ try {
 $sql = "SELECT question_ID,reponse_ID FROM CHOIX_UTILISATEUR WHERE examen_ID = :examID;";
 try {
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':examID', $examID);
+    $stmt->bindParam(':examID', $_SESSION['examID']);
     $stmt->execute();
     $userChoices = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -71,7 +71,10 @@ try {
 <main>
     <?php
     if (empty($userChoices)) {
-        echo "<h1>Vous avez abandonné l'examen</h1>";
+        echo "<section style='position: relative; width: 100%' id='abandon'>
+            <a href='./result.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class='fa-solid fa-chevron-left'></i>Resultats</a>
+            <h1>Vous avez abandonné l'examen: celui-ci ne comptera pas</h1>
+        </section>";
     } else {
         $qnaofuser = array();
         foreach ($userChoices as $choice) {
@@ -85,6 +88,19 @@ try {
                 $qnaofuser[$questionID] = $stmt->fetch(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 echo "Error coming from the database : " . $e->getMessage();
+            }
+            if ($reponseID == null) {
+                $qnaofuser[$questionID]['userAnswer'] = array(array('Contenu' => '"Je ne sais pas"', 'isCorrecte' => 0));
+                $sql = "SELECT Contenu, isCorrecte FROM REPONSE WHERE question_ID = :questionID";
+                try {
+                    $stmt = $db->prepare($sql);
+                    $stmt->bindParam(':questionID', $questionID);
+                    $stmt->execute();
+                    $qnaofuser[$questionID]['otherAnswer'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $e) {
+                    echo "Error coming from the database : " . $e->getMessage();
+                }
+                continue;
             }
             $sql = "SELECT Contenu,isCorrecte FROM REPONSE WHERE reponseID = :reponseID;";
             try {
@@ -106,7 +122,8 @@ try {
                 echo "Error coming from the database : " . $e->getMessage();
             }
         }
-        echo "<section id='details-exam'>
+        echo "<section style='position: relative; width: 100%' id='details-exam'>
+        <a href='./result.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class='fa-solid fa-chevron-left'></i>Resultats</a>
         <h1>Correction : " . $examTitle['Titre'] . "</h1>";
         $QNumber = 1;
         foreach ($qnaofuser as $key => $qanda) {
@@ -114,22 +131,24 @@ try {
                 <legend>Question " . $QNumber . "</legend>
                 <h4>" . $qanda['Contenu'] . "</h4>";
             if ($qanda['userAnswer'][0]['isCorrecte'] == 1) {
-                echo "<div>
-                    <h3>Votre réponse: " . $qanda['userAnswer'][0]['Contenu'] . "</h3>
+                echo "<diva>
+                    <h3>Votre réponse: <ul><li>" . htmlspecialchars($qanda['userAnswer'][0]['Contenu']) . "</li></ul></h3>
                     <i style='color: green' class='fa-solid fa-check'></i>
-                </div>";
+                </diva>";
             } else {
-                echo "<div>
-                    <h3>Votre réponse: " . $qanda['userAnswer'][0]['Contenu'] . "</h3>
+                echo "<diva>
+                    <h3>Votre réponse: " . htmlspecialchars($qanda['userAnswer'][0]['Contenu']) . "</h3>
                     <i style='color: darkred' class='fa-solid fa-xmark'></i>
-                </div>";
+                </diva>";
             }
-            echo "<h3>Les autres réponses étaient: </h3>";
+            echo "<h3>Les autres réponses étaient: </h3>
+                <ul>";
             foreach ($qanda['otherAnswer'] as $otherAnswer) {
-                if ($otherAnswer['isCorrecte'] == 1) echo "<div><h5>" . $otherAnswer['Contenu'] . "</h5><i style='color: green' class='fa-solid fa-check'></i></div>";
-                else echo "<h5>" . $otherAnswer['Contenu'] . "</h5>";
+                if ($otherAnswer['isCorrecte'] == 1) echo "<li>" . htmlspecialchars($otherAnswer['Contenu']) . "<i style='color: green' class='fa-solid fa-check'></i></li>";
+                else echo "<li>" . htmlspecialchars($otherAnswer['Contenu']) . "</li>";
             }
-            echo "</fieldset>";
+            echo "</ul>
+                </fieldset>";
             $QNumber++;
         }
     }
@@ -138,6 +157,5 @@ try {
 <footer>
     <img class="logo" src="images/logo.png" alt="Logo Henallux" >
 </footer>
-<script src="scripts/jscripts.js"></script>
 </body>
 </html>

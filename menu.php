@@ -54,6 +54,7 @@ function error_message(){
                 <div>
                     <h2>Examen</h2>
                     <p> L'examen que vous choisirez se composera de 10 questions choisies au hasard parmi les 20 du sujet étudié.</p>
+                    <p>+1 : bonne réponse -- -0.5 : mauvaise réponse -- 0 : pas de réponse</p>
                     <p>Tout abandon mène à l'échec</p>
                 </div>
                 <div>
@@ -83,9 +84,9 @@ function error_message(){
             <article class="choices">
                 <div>
                     <h2>Resultats</h2>
-                    <p>Pour verifier les resultat après avoir fini l’examen appuyer ici</p>
+                    <p>Dans la page resultats vous verrez la liste des examen que vous avez passé et leurs details</p>
                 </div>
-                <a href="./result.php" class="button">Resultats</a>
+                <a href="./result.php">Resultats</a>
             </article>
         </section>
     </section>

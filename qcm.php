@@ -12,27 +12,39 @@ if ($_SESSION['examChoiceID'] == 0) {
     header("Location: ./menu.php");
     exit();
 }
-$sql = "INSERT INTO EXAMEN (utilisateur_ID, qcm_ID, Etat, Resultat) VALUES (:U_ID, :QCM_ID, 'en cours','null')";
+$sql = "SELECT COUNT(questionID) FROM QUESTION WHERE qcm_ID = :valeur";
+try {
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':valeur', $_SESSION['examChoiceID']);
+    $stmt->execute();
+    $totalQuestions = $stmt->fetch();
+} catch (PDOException $e) {
+    echo "Error coming from the database : " . $e->getMessage();
+}
+$halfQuestions = round($totalQuestions[0] / 2);
+$sql = "SELECT * FROM QUESTION WHERE qcm_ID = :valeur ORDER BY RAND() LIMIT :totalQuestions;";
+try {
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':valeur', $_SESSION['examChoiceID']);
+    $stmt->bindParam(':totalQuestions', $halfQuestions, PDO::PARAM_INT);
+    $stmt->execute();
+    $questioncontentList = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error taking questions content : " . $e->getMessage();
+}
+$sql = "INSERT INTO EXAMEN (utilisateur_ID, qcm_ID, Etat, Resultat, NbQuestions) VALUES (:U_ID, :QCM_ID, 'en cours','null',:Nbquestion)";
 try {
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':U_ID', $_SESSION['userID']);
     $stmt->bindParam(':QCM_ID', $_SESSION['examChoiceID']);
+    $stmt->bindParam(':Nbquestion', $halfQuestions);
     $stmt->execute();
 } catch (PDOException $e) {
     echo "Error coming from the database : " . $e->getMessage();
 }
 $_SESSION['examenID'] = $db->lastInsertId();
-$sql = "SELECT * FROM QUESTION WHERE qcm_ID = :valeur ORDER BY RAND() LIMIT 10";
-try {
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':valeur', $_SESSION['examChoiceID']);
-    $stmt->execute();
-    $questioncontentList = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Error coming from the database : " . $e->getMessage();
-}
+$_SESSION['NbQuestions'] = $totalQuestions[0]/2;
 $questionReponses = array();
-
 foreach ($questioncontentList as $question) {
     $sql = "SELECT * FROM REPONSE WHERE question_ID = :question_ID ORDER BY RAND()";
     try {
@@ -104,7 +116,7 @@ foreach ($questioncontentList as $question) {
                         <li>";
                 $reponses = $questionReponses[$question['questionID']];
                 foreach ($reponses as $index => $reponse) {
-                    echo "<div class='answer'> <!-- Answers -->
+                    echo "<div class='answer'>
                         <input required type='radio' name='{$question['questionID']}' id='q{$question['questionID']}a{$index}' value='{$reponse['reponseID']}'>
                         <label for='q{$question['questionID']}a{$index}'>" . htmlspecialchars($reponse['Contenu']) . "</label></div>";
                 }

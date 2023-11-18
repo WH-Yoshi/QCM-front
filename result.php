@@ -7,7 +7,7 @@ $db = require('./scripts/db.php');
     exit();
 }*/
 // This code going to get each exam the user has done
-$sql = "SELECT e.examenID,e.Resultat,e.qcm_ID,q.Titre FROM EXAMEN AS e JOIN QCM as q ON e.qcm_ID=q.qcmID WHERE e.utilisateur_ID = :U_ID";
+$sql = "SELECT e.NbQuestions,e.examenID,e.Resultat,e.qcm_ID,q.Titre FROM EXAMEN AS e JOIN QCM as q ON e.qcm_ID=q.qcmID WHERE e.utilisateur_ID = :U_ID";
 try {
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':U_ID', $_SESSION['userID']);
@@ -51,7 +51,7 @@ foreach ($userExams as $exam) {
             $userChoices[$exam['examenID']] = $userChoice;
         } else {
             // Si aucun résultat n'est trouvé, répétez les valeurs par défaut
-            $userChoices[$exam['examenID']] = array_fill(0, 10, array('isCorrect' => 0, 'examen_ID' => $exam['examenID'], 'reponse_ID' => null));
+            $userChoices[$exam['examenID']] = array_fill(0, round($exam['NbQuestions']), array('isCorrect' => 0, 'examen_ID' => $exam['examenID'], 'reponse_ID' => null));
         }
     } catch (PDOException $e) {
         echo "Error coming from the database : " . $e->getMessage();
@@ -110,7 +110,8 @@ foreach ($userChoices as $userChoice) {
         </div>
     </div>
 </header>
-    <main id="results">
+    <main style="position: relative" id="results">
+        <a href='./menu.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class="fa-solid fa-chevron-left"></i>Menu</a>
         <h1>Résultats de <?php echo $_SESSION['identifiant'] ?></h1>
         <section id="qcm-result">
             <?php
@@ -118,7 +119,7 @@ foreach ($userChoices as $userChoice) {
                 echo '<div class="result">
                 <div id="onleft">
                     <h3>' . htmlspecialchars($exam['Titre']) . '</h3>
-                    <p>Vous avez obtenu ' . $exam['Resultat'] . '/10</p>
+                    <p>Vous avez obtenu ' . $exam['Resultat'] . '/' . $exam['NbQuestions'] . '</p>
                 </div>
                 <div id="onright">
                     <p>Bonnes reponses : ' . $choiceAnswers[$exam['examenID']]['good'] . '</p>
