@@ -115,7 +115,7 @@ h3#timer {
 .button:hover {
   background: #fff;
   text-decoration: none;
-  color: #333;
+  color: #111111;
 }
 .fa-chevron-left {
   margin-right: 5px;
@@ -175,7 +175,8 @@ input.button {
 
 input.button:hover {
   background: #0056a2;
-  text-decoration: none
+  text-decoration: none;
+  color: #fff;
 }
 /*MENU*/
 section#menu,section#panels {
@@ -267,13 +268,16 @@ form.custom-select select {
 form.custom-select select:focus {
   outline: 0;
   border-color: #0056a2;
-  box-shadow: 0 0 0 .2rem rgba(0,113,185,.25)
+  box-shadow: 0 0 0 .2rem rgba(0,113,185,.25);
+  color: #fff;
 }
 
 form.custom-select input {
   width: 30%
 }
-
+form.custom-select input:focus {
+  color: white;
+}
 article.choices a {
   width: 100%;
   background: #333;

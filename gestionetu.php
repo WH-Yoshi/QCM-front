@@ -1,0 +1,127 @@
+<?php
+session_start();
+function print_r2($val){
+    echo '<pre>';
+    print_r($val);
+    echo  '</pre>';
+}
+$db = require('./scripts/db.php');
+if (!isset($_SESSION['identifiant'])) {
+    $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
+    header("Location: ./connection.php");
+    exit();
+}
+$sql = "SELECT utilisateurID,Prenom FROM UTILISATEUR WHERE Role = 'etudiant';";
+try {
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $etudiants = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error coming from the database : " . $e->getMessage();
+}
+if (empty($etudiants)) {
+    $_SESSION['message'] = "Il n'y a pas encore d'étudiants dans la base de données";
+    header("Location: ./prof.php");
+    exit();
+}
+$sql = "SELECT qcmID,Valeur FROM QCM;";
+try {
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $qcms = $stmt->fetchAll($mode = PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error coming from the database : " . $e->getMessage();
+}
+if (empty($qcms)) {
+    $_SESSION['message'] = "Il n'y a pas encore de QCM dans la base de données";
+    header("Location: ./prof.php");
+    exit();
+}
+foreach ($qcms as $qcm) {
+    foreach ($etudiants as $index => $etudiant) { // Compter le nombre d'examens passés par l'étudiant
+        $sql = "SELECT count(examenID) FROM EXAMEN WHERE utilisateur_ID = :user AND qcm_ID = :qcmid;";
+        $stmt = $db->prepare($sql);
+        try {
+            $stmt->bindParam(':user', $etudiant['utilisateurID']);
+            $stmt->bindParam(':qcmid', $qcm['qcmID']);
+            $stmt->execute();
+            $etudiants[$index][$qcm['Valeur']] = $stmt->fetch(PDO::FETCH_COLUMN);
+        } catch (PDOException $e) {
+            echo "Error getting exam user from the database : " . $e->getMessage();
+        }
+        $sql = "SELECT Q.Valeur FROM EXAMEN E JOIN QCM Q on Q.qcmID = E.qcm_ID WHERE utilisateur_ID = :user AND Etat = 'en cours';";
+        $stmt = $db->prepare($sql);
+        try {
+            $stmt->bindParam(':user', $etudiant['utilisateurID']);
+            $stmt->execute();
+            $etudiant = $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Error coming from the database : " . $e->getMessage();
+        }
+    }
+}
+print_r2($etudiants);
+?>
+<!--<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Luca Abs">
+    <title>Henallux QCM</title>
+    <link href="styles/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Montserrat&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/147d135573.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<header>
+    <div class="leftnav">
+        <img class="logo" src="images/logo.png" alt="Logo Henallux">
+        <h2 id="nameofpage">QCM - Technologie WEB</h2>
+    </div>
+    <div class="dropdown">
+        <button type="button" class="dropbtn">
+            <i class="fa-solid fa-user"></i>
+            <?php /*if (isset($_SESSION['Prenom'])) {
+                echo "<h4>" . $_SESSION['Prenom'] . "</h4>";
+            } */?>
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content" id="myDropdown">
+            <a href="./scripts/logout.php">Déconnexion</a>
+        </div>
+    </div>
+</header>
+<main style="position: relative" id="results">
+    <a href='./prof.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class="fa-solid fa-chevron-left"></i>Menu</a>
+    <h1>Etudiants de <?php /*echo $_SESSION['identifiant'] */?></h1>
+    <section id="qcm-result">
+        <?php
+/*        foreach ($etudiants as $etu) {
+
+            $sql = "SELECT Titre FROM QCM WHERE qcmID = :qcmid;";
+            echo '<div class="result">
+                <div id="onleft">
+                    <h3>' . $etu['Identifiant'] . '</h3>
+                    <p>L\'étudiant à passé ' . count($exam['Resultat']) . '/' . $exam['NbQuestions'] . '</p>
+                </div>
+                <div id="onright">
+                    <p>Bonnes reponses : ' . $choiceAnswers[$exam['examenID']]['good'] . '</p>
+                    <p>Mauvaises reponses : ' . $choiceAnswers[$exam['examenID']]['bad'] . '</p>
+                    <p>Questions non repondues : ' . $choiceAnswers[$exam['examenID']]['idk'] . '</p>
+                    <p class="next"><a href="./details.php?examID=' . $exam['examenID'] . '">Voir les détails</a></p>
+                </div>
+            </div>';
+        }
+        */?>
+    </section>
+</main>
+<footer>
+    <img class="logo" src="images/logo.png" alt="Logo Henallux" >
+</footer>
+</body>
+</html>-->
