@@ -45,16 +45,20 @@ foreach ($qcms as $qcm) {
             $stmt->bindParam(':user', $etudiant['utilisateurID']);
             $stmt->bindParam(':qcmid', $qcm['qcmID']);
             $stmt->execute();
-            $etudiants[$index][$qcm['Valeur']] = $stmt->fetch(PDO::FETCH_COLUMN);
+            $etudiants[$index][$qcm['Valeur']]['NbExams'] = $stmt->fetch(PDO::FETCH_COLUMN);
         } catch (PDOException $e) {
             echo "Error getting exam user from the database : " . $e->getMessage();
         }
-        $sql = "SELECT Q.Valeur FROM EXAMEN E JOIN QCM Q on Q.qcmID = E.qcm_ID WHERE utilisateur_ID = :user AND Etat = 'en cours';";
+        $sql = "SELECT count(Q.Valeur) FROM EXAMEN E JOIN QCM Q on Q.qcmID = E.qcm_ID WHERE utilisateur_ID = :user AND Etat = 'en cours';";
         $stmt = $db->prepare($sql);
         try {
             $stmt->bindParam(':user', $etudiant['utilisateurID']);
             $stmt->execute();
-            $etudiant = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($stmt->fetch(PDO::FETCH_COLUMN) == null) {
+                $etudiants[$index][$qcm['Valeur']]['EnCours'] = 0;
+            } else {
+                $etudiants[$index][$qcm['Valeur']]['EnCours'] = $stmt->fetch(PDO::FETCH_COLUMN);
+            }
         } catch (PDOException $e) {
             echo "Error coming from the database : " . $e->getMessage();
         }
