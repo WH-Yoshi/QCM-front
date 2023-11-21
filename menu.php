@@ -66,10 +66,13 @@ function error_message(){
                                 <option value="0" selected>--Choisir un examen--</option>
                                 <?php
                                 try {
-                                    $sql = "SELECT qcmID,Titre FROM QCM";
-                                    $stmt = $db->query($sql);
-                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "<option value='" . $row['qcmID'] . "'>" . $row['Titre'] . "</option>";
+                                    $sql = "SELECT q.qcmID, q.Titre FROM QCM q WHERE NOT EXISTS (SELECT 1 FROM EXAMEN e WHERE e.qcm_ID = q.qcmID AND e.utilisateur_ID = :utilisateurID);";
+                                    $stmt = $db->prepare($sql);
+                                    $stmt->bindParam(':utilisateurID', $_SESSION['userID']);
+                                    $stmt->execute();
+                                    $qcms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($qcms as $qcm) {
+                                        echo "<option value='" . $qcm['qcmID'] . "'>" . $qcm['Titre'] . "</option>";
                                     }
                                 } catch (PDOException $e) {
                                     echo "Erreur de connexion à la base de données : " . $e->getMessage();

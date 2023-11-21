@@ -61,7 +61,6 @@ foreach ($_POST as $key => $value) {
         echo "Error coming from the database : " . $e->getMessage();
     }
 }
-echo $total;
 $sql = "UPDATE EXAMEN SET Etat = 'fini', Resultat = :resultat WHERE EXAMEN.examenID = :examID;";
 try {
     $stmt = $db->prepare($sql);
@@ -125,7 +124,7 @@ unset($_SESSION['examenID']);
                 </aside>
             </div>
             <div id="redirect">
-                <h2><?php echo $total; ?>/10</h2>
+                <h2><?php echo $total; ?>/<?php echo $_SESSION['NbQuestions'] ?></h2>
                 <h3><?php if($total >= round($_SESSION['NbQuestions']/2)){
                         echo "Vous avez réussi l'examen !";
                     } else {

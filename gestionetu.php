@@ -11,7 +11,7 @@ if (!isset($_SESSION['identifiant'])) {
     header("Location: ./connection.php");
     exit();
 }
-$sql = "SELECT utilisateurID,Prenom FROM UTILISATEUR WHERE Role = 'etudiant';";
+$sql = "SELECT utilisateurID,Prenom,Identifiant FROM UTILISATEUR WHERE Role = 'etudiant';";
 try {
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -39,7 +39,7 @@ if (empty($qcms)) {
 }
 foreach ($qcms as $qcm) {
     foreach ($etudiants as $index => $etudiant) { // Compter le nombre d'examens passés par l'étudiant
-        $sql = "SELECT count(examenID) FROM EXAMEN WHERE utilisateur_ID = :user AND qcm_ID = :qcmid;";
+        $sql = "SELECT count(Resultat) FROM EXAMEN WHERE utilisateur_ID = :user AND qcm_ID = :qcmid;";
         $stmt = $db->prepare($sql);
         try {
             $stmt->bindParam(':user', $etudiant['utilisateurID']);
@@ -49,15 +49,16 @@ foreach ($qcms as $qcm) {
         } catch (PDOException $e) {
             echo "Error getting exam user from the database : " . $e->getMessage();
         }
-        $sql = "SELECT count(Q.Valeur) FROM EXAMEN E JOIN QCM Q on Q.qcmID = E.qcm_ID WHERE utilisateur_ID = :user AND Etat = 'en cours';";
+        $sql = "SELECT count(Q.Valeur) FROM EXAMEN E JOIN QCM Q on Q.qcmID = E.qcm_ID WHERE qcm_ID = :qcmid AND utilisateur_ID = :user AND Etat = 'en cours';";
         $stmt = $db->prepare($sql);
         try {
+            $stmt->bindParam(':qcmid', $qcm['qcmID']);
             $stmt->bindParam(':user', $etudiant['utilisateurID']);
             $stmt->execute();
             if($stmt->fetch(PDO::FETCH_COLUMN) == null) {
                 $etudiants[$index][$qcm['Valeur']]['EnCours'] = 0;
             } else {
-                $etudiants[$index][$qcm['Valeur']]['EnCours'] = $stmt->fetch(PDO::FETCH_COLUMN);
+                $etudiants[$index][$qcm['Valeur']]['EnCours'] = true;
             }
         } catch (PDOException $e) {
             echo "Error coming from the database : " . $e->getMessage();
@@ -66,7 +67,7 @@ foreach ($qcms as $qcm) {
 }
 print_r2($etudiants);
 ?>
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -90,9 +91,9 @@ print_r2($etudiants);
     <div class="dropdown">
         <button type="button" class="dropbtn">
             <i class="fa-solid fa-user"></i>
-            <?php /*if (isset($_SESSION['Prenom'])) {
+            <?php if (isset($_SESSION['Prenom'])) {
                 echo "<h4>" . $_SESSION['Prenom'] . "</h4>";
-            } */?>
+            } ?>
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content" id="myDropdown">
@@ -102,26 +103,23 @@ print_r2($etudiants);
 </header>
 <main style="position: relative" id="results">
     <a href='./prof.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class="fa-solid fa-chevron-left"></i>Menu</a>
-    <h1>Etudiants de <?php /*echo $_SESSION['identifiant'] */?></h1>
+    <h1>Etudiants de <?php echo $_SESSION['identifiant'] ?></h1>
     <section id="qcm-result">
         <?php
-/*        foreach ($etudiants as $etu) {
+        foreach ($etudiants as $etu) {
 
             $sql = "SELECT Titre FROM QCM WHERE qcmID = :qcmid;";
             echo '<div class="result">
-                <div id="onleft">
-                    <h3>' . $etu['Identifiant'] . '</h3>
-                    <p>L\'étudiant à passé ' . count($exam['Resultat']) . '/' . $exam['NbQuestions'] . '</p>
+                <div id="ontop">
+                    <h3>' . $etu['Prnenom'] . '</h3>
+                    <p>Identifiant d\'étudiant: ' . $etu['Identifiant'] . '</p>
                 </div>
-                <div id="onright">
-                    <p>Bonnes reponses : ' . $choiceAnswers[$exam['examenID']]['good'] . '</p>
-                    <p>Mauvaises reponses : ' . $choiceAnswers[$exam['examenID']]['bad'] . '</p>
-                    <p>Questions non repondues : ' . $choiceAnswers[$exam['examenID']]['idk'] . '</p>
-                    <p class="next"><a href="./details.php?examID=' . $exam['examenID'] . '">Voir les détails</a></p>
+                <div id="onbot">
+                    <p>Examen : ' . $choiceAnswers[$exam['examenID']]['good'] . '</p>
                 </div>
             </div>';
         }
-        */?>
+        ?>
     </section>
 </main>
 <footer>
