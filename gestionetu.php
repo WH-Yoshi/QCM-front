@@ -102,7 +102,7 @@ foreach ($qcms as $qcm) {
 </header>
 <main style="position: relative" id="results">
     <a href='./prof.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class="fa-solid fa-chevron-left"></i>Menu</a>
-    <a class='button' style='position: absolute; bottom: 20px; margin: auto' onClick="window.location.reload();"><i class="fa-solid fa-rotate-right"></i>Rafraichir la page</a>
+    <a class='button' style='position: absolute; bottom: 20px; right: 20px' onClick="window.location.reload();"><i class="fa-solid fa-rotate-right"></i>Rafraichir la page</a>
     <h1>Etudiants de <?php echo $_SESSION['identifiant'] ?></h1>
     <section id="qcm-result">
         <?php
