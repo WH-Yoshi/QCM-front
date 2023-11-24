@@ -32,7 +32,7 @@ function error_message(){
     <main>
         <section id="connexion">
             <article class="content">
-                <h1>connexion</h1>
+                <h1>henallux</h1>
                 <form method="post" action="./scripts/login.php">
                     <input type="text" required placeholder="Identifiant" name="Identifiant" id="Identifiant">
                     <input type="password" required placeholder="Mot de passe" name="Motdepasse" id="Motdepasse">

@@ -89,7 +89,7 @@ h3#timer {
 }
 .button:hover {
   background: #fff;
-  color: #111;
+  color: #000;
   cursor: pointer;
 }
 .fa-chevron-left, .fa-rotate-right {
@@ -245,7 +245,8 @@ article.choices a {
 }
 article.choices a:hover {
   background: #0056a2;
-  text-decoration: none
+  text-decoration: none;
+  color: #fff
 }
 
 /* QCM */

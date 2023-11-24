@@ -1,7 +1,7 @@
 /* Timer */
 const timerElement = document.getElementById('timer');
 const timerInterval = setInterval(updateTimer, 1000);
-const examDuration = 10 * 60;
+const examDuration = 5 * 60;
 let remainingTime = localStorage.getItem('remainingTime');
 if (remainingTime === null) {
     remainingTime = examDuration;

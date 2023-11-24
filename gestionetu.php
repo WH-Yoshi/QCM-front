@@ -38,14 +38,14 @@ if (empty($qcms)) {
     exit();
 }
 foreach ($qcms as $qcm) {
-    foreach ($etudiants as $index => $etudiant) { // Compter le nombre d'examens passés par l'étudiant
-        $sql = "SELECT examenID FROM EXAMEN WHERE utilisateur_ID = :user AND qcm_ID = :qcmid;";
+    foreach ($etudiants as $index => $etudiant) { // Avoir les examens des etudiants
+        $sql = "SELECT examenID,Resultat,NbQuestions FROM EXAMEN WHERE utilisateur_ID = :user AND qcm_ID = :qcmid;";
         $stmt = $db->prepare($sql);
         try {
             $stmt->bindParam(':user', $etudiant['utilisateurID']);
             $stmt->bindParam(':qcmid', $qcm['qcmID']);
             $stmt->execute();
-            $etudiants[$index][$qcm['Valeur']]['NbExams'] = $stmt->fetch(PDO::FETCH_COLUMN);
+            $etudiants[$index][$qcm['Valeur']]['Exam'] = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo "Error getting exam user from the database : " . $e->getMessage();
         }
@@ -102,7 +102,7 @@ foreach ($qcms as $qcm) {
 </header>
 <main style="position: relative" id="results">
     <a href='./prof.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class="fa-solid fa-chevron-left"></i>Menu</a>
-    <a class='button' style='position: absolute; bottom: 20px; right: 20px' onClick="window.location.reload();"><i class="fa-solid fa-rotate-right"></i>Rafraichir la page</a>
+    <a class='button' style='position: absolute; top: 20px; right: 20px' onClick="window.location.reload();"><i class="fa-solid fa-rotate-right"></i>Rafraichir la page</a>
     <h1>Etudiants de <?php echo $_SESSION['identifiant'] ?></h1>
     <section id="qcm-result">
         <?php
@@ -116,13 +116,17 @@ foreach ($qcms as $qcm) {
                 <div id="onbot">';
             foreach ($qcms as $qcm) {
                 echo "<div class='qcm'>";
-                if ($etu[$qcm['Valeur']]['NbExams'] == null) {
+                if ($etu[$qcm['Valeur']]['Exam'] == null) {
                     echo '<p>' . $etu['Prenom'] . ' n\'a pas encore passé d\'examen ' . $qcm['Valeur'] . '</p>';
-                } elseif ($etu[$qcm['Valeur']]['NbExams'] > 0) {
+                } elseif ($etu[$qcm['Valeur']]['Exam']['examenID'] > 0) {
                     if ($etu[$qcm['Valeur']]['EnCours'] == 1) {
                         echo '<p>' . $etu['Prenom'] . ' a un examen ' . $qcm['Valeur'] . ' en cours</p>';
                     } else {
-                        echo '<p>' . $etu['Prenom'] . ' à passés l\'examen ' . $qcm['Valeur'] . '</p><a class="button" href="details.php?examID=' . $etu[$qcm['Valeur']]['NbExams'] . '">Détails</a>';
+                        if(intval($etu[$qcm['Valeur']]['Exam']['Resultat']) > round($etu[$qcm['Valeur']]['Exam']['NbQuestions'] / 2)) {
+                            echo '<p>' . $etu['Prenom'] . ' à raté l\'examen ' . $qcm['Valeur'] . '</p><a class="button" href="details.php?examID=' . $etu[$qcm['Valeur']]['Exam']['examenID'] . '">Détails</a>';
+                        } else {
+                            echo '<p>' . $etu['Prenom'] . ' à réussi l\'examen ' . $qcm['Valeur'] . '</p><a class="button" href="details.php?examID=' . $etu[$qcm['Valeur']]['Exam']['examenID'] . '">Détails</a>';
+                        }
                     }
                 }
                 echo '</div>';
