@@ -15,7 +15,7 @@ if (isset($_SESSION['examenID'])) {
         return;
     } else {
         if ($exam['Etat'] == 'en cours') {
-            $sql = "DELETE FROM EXAMEN WHERE utilisateur_ID = :U_ID AND Etat = 'en cours'";
+            $sql = "UPDATE EXAMEN SET Etat = 'fini', Resultat = '0' WHERE utilisateur_ID = :U_ID AND Etat = 'en cours'";
             try {
                 $stmt = $db->prepare($sql);
                 $stmt->bindParam(':U_ID', $_SESSION['userID']);

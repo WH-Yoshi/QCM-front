@@ -109,7 +109,8 @@ unset($_SESSION['examenID']);
     </div>
 </header>
 <main>
-    <section id="resultat">
+    <section style="position: relative;" id="resultat">
+        <a href='./menu.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class="fa-solid fa-chevron-left"></i>Menu</a>
         <h1>Le resultat ont bien été envoyés à la base de données</h1>
         <fieldset class="question-boxes">
             <legend>Resultat</legend>

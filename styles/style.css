@@ -88,9 +88,10 @@ h3#timer {
 }
 .button:hover {
   background: #fff;
-  color: #111
+  color: #111;
+  cursor: pointer;
 }
-.fa-chevron-left {
+.fa-chevron-left, .fa-rotate-right {
   margin-right: 5px
 }
 header#page1header {
@@ -441,7 +442,8 @@ section#qcm-result div.result div#onbot div.qcm {
   flex-direction: row;
   justify-content: space-between;
   gap: 10px;
-  align-items: center
+  align-items: center;
+  text-align: right;
 }
 section#qcm-result div.result p.next {
   margin-top: 10px

@@ -55,7 +55,8 @@ function error_message(){
                     <h2>Examen</h2>
                     <p> L'examen que vous choisirez se composera de 10 questions choisies au hasard parmi les 20 du sujet étudié.</p>
                     <p>+1 : bonne réponse / -0.5 : mauvaise réponse / 0 : pas de réponse</p>
-                    <p>Tout abandon mène à l'échec</p>
+                    <p>Vous avez <u>5 minutes</u> pour répondre à toutes les questions et n'avez droit a qu'<u>un seul essai</u></p>
+                    <p style="color: #811b1b"><u>Tout abandon mène à l'échec</u></p>
                 </div>
                 <div>
                     <h4 class="error"><?php error_message();?></h4>
