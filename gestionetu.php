@@ -39,7 +39,7 @@ if (empty($qcms)) {
 }
 foreach ($qcms as $qcm) {
     foreach ($etudiants as $index => $etudiant) { // Compter le nombre d'examens passés par l'étudiant
-        $sql = "SELECT count(Resultat) FROM EXAMEN WHERE utilisateur_ID = :user AND qcm_ID = :qcmid;";
+        $sql = "SELECT examenID FROM EXAMEN WHERE utilisateur_ID = :user AND qcm_ID = :qcmid;";
         $stmt = $db->prepare($sql);
         try {
             $stmt->bindParam(':user', $etudiant['utilisateurID']);
@@ -65,7 +65,6 @@ foreach ($qcms as $qcm) {
         }
     }
 }
-print_r2($etudiants);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -107,17 +106,29 @@ print_r2($etudiants);
     <section id="qcm-result">
         <?php
         foreach ($etudiants as $etu) {
-
             $sql = "SELECT Titre FROM QCM WHERE qcmID = :qcmid;";
             echo '<div class="result">
                 <div id="ontop">
-                    <h3>' . $etu['Prnenom'] . '</h3>
+                    <h3>' . $etu['Prenom'] . '</h3>
                     <p>Identifiant d\'étudiant: ' . $etu['Identifiant'] . '</p>
                 </div>
-                <div id="onbot">
-                    <p>Examen : ' . $choiceAnswers[$exam['examenID']]['good'] . '</p>
-                </div>
+                <div id="onbot">';
+            foreach ($qcms as $qcm) {
+                echo "<div class='qcm'>";
+                if ($etu[$qcm['Valeur']]['NbExams'] == null) {
+                    echo '<p>' . $etu['Prenom'] . ' n\'a pas encore passé d\'examen ' . $qcm['Valeur'] . '</p>';
+                } elseif ($etu[$qcm['Valeur']]['NbExams'] > 0) {
+                    if ($etu[$qcm['Valeur']]['EnCours'] == 1) {
+                        echo '<p>' . $etu['Prenom'] . ' a un examen ' . $qcm['Valeur'] . ' en cours</p>';
+                    } else {
+                        echo '<p>' . $etu['Prenom'] . ' à passés l\'examen ' . $qcm['Valeur'] . '</p><a class="button" href="details.php?examID=' . $etu[$qcm['Valeur']]['NbExams'] . '">Détails</a>';
+                    }
+                }
+                echo '</div>';
+            }
+                echo '</div>
             </div>';
+
         }
         ?>
     </section>
@@ -126,4 +137,4 @@ print_r2($etudiants);
     <img class="logo" src="images/logo.png" alt="Logo Henallux" >
 </footer>
 </body>
-</html>-->
+</html>

@@ -15,7 +15,7 @@ function updateTimer() {
 
     if (remainingTime <= 0) {
         clearInterval(timerInterval);
-        timerElement.textContent = "Temps écoulé !";
+        timerElement.textContent = "Temps écoulé ! Vous devez vous deconnecter";
         disablePageInteractions();
     } else {
         remainingTime--;

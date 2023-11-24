@@ -4,139 +4,109 @@
   box-sizing: border-box;
   font-family: "Montserrat",sans-serif
 }
-
 body,main {
   flex-direction: column
 }
-
 body {
   height: 100vh;
   background-color: #0056a2
 }
-
 main {
   height: 100%;
   gap: 2px
 }
-
-a {
+.button:hover,a {
   text-decoration: none
 }
-
 em,h1 {
   color: #f9f8ff
 }
-
 em {
   font-style: normal
 }
-
 h1 {
   text-align: center;
   font-weight: 700
 }
-
 footer,header {
   width: 100%;
   background-color: #fff;
   padding: 15px 25px
 }
-
 footer {
   bottom: 0
 }
-
 section {
   padding: 20px 35px
 }
-
 body,header,nav {
   justify-content: space-between
 }
-
 header,nav {
   align-items: center
 }
-
 img.logo {
   height: 90px;
   width: 77px
 }
-
 form,form input {
-  width: 100%;
-  color: #fff
+  width: 100%
 }
-
 body,form,header,nav {
   display: flex
 }
-
 form {
   flex-direction: column
 }
-
 label {
   font-weight: 400
 }
-
 form input {
-  background: #333;
-  padding: 12px 20px;
-  border: 0;
-  outline: 0;
-  border-radius: 4px;
-  font-weight: 500;
-  font-size: 1em
+  font-weight: 500
 }
-
-h4.error {
+.button,h4.error {
   color: #b00020;
   font-weight: 500;
   font-size: 1.3em
 }
-
 h3#timer {
   position: absolute;
   top: 200px;
-  right: 100px;
+  right: 100px
 }
-.button {
+.button,form input {
   background: #333;
   padding: 12px 20px;
   border: 0;
   outline: 0;
   border-radius: 4px;
-  font-weight: 500;
-  font-size: 1em;
+  font-size: 1em
+}
+.button {
   color: #fff;
-  text-align: center;
+  text-align: center
 }
 .button:hover {
   background: #fff;
-  text-decoration: none;
-  color: #111111;
+  color: #111
 }
 .fa-chevron-left {
-  margin-right: 5px;
+  margin-right: 5px
 }
-
-/*CONNECTION*/
 header#page1header {
   justify-content: left
 }
-
 h2#nameofpage1 {
   text-align: right;
   width: calc(50% + 63px)
 }
-
 main,section#connexion,section#connexion article.content {
   display: flex;
   justify-content: center;
   align-items: center
 }
 
+/* CONNEXION */
 section#connexion {
   width: 400px;
   background-color: #fff;
@@ -144,70 +114,60 @@ section#connexion {
   border-radius: 4px;
   box-shadow: 0 15px 35px #000
 }
-
 section#connexion article.content {
   width: 100%;
   flex-direction: column;
   gap: 40px
 }
-
 section#connexion h1 {
   font-size: 2em;
   text-transform: uppercase;
   color: #0056a2
 }
-
 section#connexion form {
   gap: 25px
 }
-
 ::placeholder {
   color: #aaa;
   font-weight: 500;
   font-size: 1em
 }
-
 input.button {
   color: #fff;
   font-weight: 600;
   cursor: pointer
 }
-
 input.button:hover {
   background: #0056a2;
   text-decoration: none;
-  color: #fff;
+  color: #fff
 }
-/*MENU*/
+
+/* MENU */
 section#menu,section#panels {
   display: flex;
   align-items: center;
   width: 100%
 }
-
 section#menu {
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%
 }
-
 section#menu h1 {
   font-size: 2.3em;
   text-transform: uppercase;
   color: #fff
 }
-
 section#panels {
   justify-content: space-around;
   height: 400px
 }
-
 article.choices,article.choices div {
   display: flex;
   align-items: center;
   flex-direction: column
 }
-
 article.choices {
   width: 40%;
   height: 100%;
@@ -215,19 +175,16 @@ article.choices {
   justify-content: space-between;
   padding: 30px;
   border-radius: 4px;
-  box-shadow: 0 15px 35px #000;
+  box-shadow: 0 15px 35px #000
 }
-
 article.choices div {
-  width: 100%;
+  width: 100%
 }
-
 article.choices h2 {
   text-transform: uppercase;
   color: #000;
   text-decoration: underline
 }
-
 article.choices p {
   color: #000;
   font-weight: 400;
@@ -235,24 +192,20 @@ article.choices p {
   margin-top: 10px;
   width: 100%
 }
-
 article.choices h4.error {
   margin-bottom: 10px;
   padding: 4px 7px;
   border-radius: 4px
 }
-
 form.custom-select label {
   margin-bottom: 10px;
   margin-left: 2px;
   color: #000
 }
-
 form.custom-select article {
   display: flex;
   gap: 10px
 }
-
 form.custom-select select {
   appearance: none;
   width: 70%;
@@ -264,19 +217,17 @@ form.custom-select select {
   color: #000;
   cursor: pointer
 }
-
 form.custom-select select:focus {
   outline: 0;
   border-color: #0056a2;
   box-shadow: 0 0 0 .2rem rgba(0,113,185,.25);
-  color: #fff;
+  color: #000
 }
-
 form.custom-select input {
   width: 30%
 }
 form.custom-select input:focus {
-  color: white;
+  color: #fff
 }
 article.choices a {
   width: 100%;
@@ -294,35 +245,32 @@ article.choices a:hover {
   background: #0056a2;
   text-decoration: none
 }
-/*QCM*/
+
+/* QCM */
 body.longpage {
   height: auto
 }
-
 section#qcm-exam,section#qcm-exam li {
   flex-direction: column
 }
-
 section#qcm-exam h1 {
   font-size: 2.3em;
   text-transform: uppercase;
   color: #fff;
   margin: 30px 0
 }
-
-form.form-qcm {
+div.answer,form.form-qcm,section#qcm-exam {
   width: 100%;
-  align-items: center;
+  align-items: center
 }
-
 fieldset.question-boxes {
   width: 66%;
   margin: 25px;
   border-radius: 8px;
   border: 2px solid #fff;
-  padding: 20px
+  padding: 20px;
+  color: #fff
 }
-
 fieldset.question-boxes legend {
   background-color: #fff;
   color: #333;
@@ -332,29 +280,22 @@ fieldset.question-boxes legend {
   padding: 2px 5px;
   margin: 0 10px
 }
-
-section#qcm-exam h4 {
+section#details-exam h4,section#qcm-exam h4 {
   margin-bottom: 10px;
   font-size: 1.4em;
   font-weight: 400
 }
-
 section#qcm-exam ol {
   list-style-type: none;
   padding: 10px
 }
-
 section#qcm-exam li {
   display: flex;
   gap: 10px
 }
-
 div.answer,section#qcm-exam {
-  display: flex;
-  align-items: center;
-  width: 100%;
+  display: flex
 }
-
 div.answer input {
   appearance: none;
   cursor: pointer;
@@ -368,120 +309,99 @@ div.answer input {
   transition: .2s all linear;
   margin-right: 5px
 }
-
 div.answer input:hover {
   background-color: #5d626e
 }
-
 div.answer input:checked {
   border: 2px solid #333;
   background-color: #333
 }
-
 div.answer label {
   margin: 0 15px;
   font-size: 1.1em;
   line-height: 1.5em;
   cursor: pointer
 }
-
 form.form-qcm input[type=submit] {
   margin: 25px;
   width: unset
 }
 
-/*EXIT*/
+/* Exit */
 section#resultat {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 50px;
   height: 100%;
-  width: 100%;
+  width: 100%
 }
-section#resultat h1 {
-  margin-top: 60px;
+main#results h1,section#resultat h1 {
+  margin-top: 60px
 }
 section#resultat fieldset.question-boxes {
   width: 50%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between
 }
-section#resultat fieldset.question-boxes h1 {
+section#resultat fieldset.question-boxes div#qcmUserPart h2,section#resultat fieldset.question-boxes h1 {
   text-align: left;
   margin-top: 0;
   font-weight: 400;
-  font-size: 1.9em;
+  font-size: 1.9em
 }
 section#resultat fieldset.question-boxes h2 {
-  text-align: left;
-  font-weight: 500;
-  font-size: 0.8em;
-}
-section#resultat fieldset.question-boxes h2 {
-  color: #fff;
+  color: #fff
 }
 section#resultat fieldset.question-boxes div {
-  width: 50%;
+  width: 50%
 }
 section#resultat fieldset.question-boxes a {
-  color: #efef46;
+  color: #efef46
 }
 section#resultat fieldset.question-boxes a:hover {
-  color: #000;
+  color: #000
 }
 section#resultat fieldset.question-boxes div#qcmUserPart {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
-}
-section#resultat fieldset.question-boxes div#qcmUserPart h2 {
-  text-align: left;
-  margin-top: 0;
-  font-weight: 400;
-  font-size: 1.9em;
+  gap: 20px
 }
 section#resultat fieldset.question-boxes div#qcmUserPart h3 {
-  color: white;
-  font-weight: 500;
+  color: #fff;
+  font-weight: 500
 }
 section#resultat fieldset.question-boxes div#userPart h1 {
   text-align: left;
   margin-top: 0;
   font-weight: 600;
   font-size: 2.1em;
-  color: #efef46;
+  color: #efef46
 }
-section#resultat fieldset.question-boxes div#userPart h2 {
+section#resultat fieldset.question-boxes div#userPart h2,section#resultat fieldset.question-boxes h2 {
   text-align: left;
   font-weight: 500;
-  font-size: 0.8em;
+  font-size: .8em
 }
 section#resultat fieldset.question-boxes div#redirect {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   text-align: right;
-  color: white;
+  color: #fff
 }
 section#resultat fieldset.question-boxes div#redirect h2 {
   text-align: right;
   font-weight: 500;
-  font-size: 2em;
+  font-size: 2em
 }
 section#resultat fieldset.question-boxes div#redirect p {
-  margin-bottom: 3px;
+  margin-bottom: 3px
 }
 
-/*RESULT*/
+/* DETAILS */
 main#results {
   display: flex;
-  justify-content: flex-start;
-}
-main#results h1 {
-  margin-top: 60px;
+  justify-content: flex-start
 }
 section#qcm-result {
   width: 100%;
@@ -490,7 +410,7 @@ section#qcm-result {
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 20px;
-  margin-top: 40px;
+  margin-top: 40px
 }
 section#qcm-result div.result {
   display: flex;
@@ -501,35 +421,42 @@ section#qcm-result div.result {
   border: 2px solid #fff;
   padding: 20px;
   box-sizing: border-box;
-  color: white;
+  color: #fff
 }
-section#qcm-result div.result div#onleft {
+section#qcm-result div.result div#onleft,section#resultat fieldset.question-boxes div#redirect {
   display: flex;
   flex-direction: column;
   justify-content: space-between
 }
-section#qcm-result div.result div#onright {
+section#qcm-result div.result div#onbot,section#qcm-result div.result div#onright {
   display: flex;
   flex-direction: column;
-  text-align: right;
+  text-align: right
+}
+section#qcm-result div.result div#onbot {
+  gap: 20px
+}
+section#qcm-result div.result div#onbot div.qcm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center
 }
 section#qcm-result div.result p.next {
-  margin-top: 10px;
+  margin-top: 10px
 }
 section#qcm-result div.result a {
   padding: 5px;
   border-radius: 2px;
   background-color: #333;
-  color: #fff;
+  color: #fff
 }
 section#qcm-result div.result a:hover {
-  background-color: #004684;
+  background-color: #004684
 }
-/* DETAILS */
 section#details-exam {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  flex-direction: column
 }
 section#details-exam h1 {
   font-size: 2.3em;
@@ -537,83 +464,51 @@ section#details-exam h1 {
   color: #fff;
   margin: 30px 0
 }
-section#abandon {
+.leftnav,section#abandon,section#details-exam {
   display: flex;
+  align-items: center
+}
+section#abandon {
   height: calc(100vh - 120px - 124px);
   width: 100%;
-  align-items: center;
   justify-content: center;
-  position: relative;
+  position: relative
 }
-fieldset.question-boxes {
-  width: 66%;
-  margin: 25px;
-  border-radius: 8px;
-  border: 2px solid #fff;
-  padding: 20px;
-  color: white;
-}
-fieldset.question-boxes legend {
-  background-color: #fff;
-  color: #333;
-  font-size: 1.2em;
-  font-weight: 500;
-  border-radius: 4px;
-  padding: 2px 5px;
-  margin: 0 10px
-}
-section#details-exam h4 {
-  margin-bottom: 10px;
-  font-size: 1.4em;
-  font-weight: 400
-}
-fieldset.question-boxes diva {
+fieldset.question-boxes diva,fieldset.question-boxes diva h3 {
   display: flex;
   flex-direction: row;
-  gap: 10px;
-}
-fieldset.question-boxes diva h3{
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+  gap: 10px
 }
 fieldset.question-boxes .fa-solid {
   font-size: 1.5em;
   background-color: #fff;
   border-radius: 4px;
-  padding: 0 3px;
+  padding: 0 3px
 }
 fieldset.question-boxes ul {
-    margin-left: 30px;
-    font-size: 1.1em;
+  margin-left: 30px;
+  font-size: 1.1em
 }
 fieldset.question-boxes li {
-  line-height: 27px;
+  line-height: 27px
 }
 fieldset.question-boxes li i {
-  margin: 0 5px;
-
+  margin: 0 5px
 }
 h0 {
-  height: 100%;
+  height: 100%
 }
-
-
 
 /* DROPDOWN */
 .leftnav {
-  display: flex;
-  align-items: center;
   width: calc(50% + 140px);
   justify-content: space-between
 }
-
 .dropdown {
   float: left;
   overflow: hidden;
   align-items: center
 }
-
 .dropdown .dropbtn {
   display: flex;
   font-size: 16px;
@@ -625,17 +520,14 @@ h0 {
   font-family: inherit;
   margin: 0
 }
-
 .dropbtn h4 {
   margin: 0 10px
 }
-
 .dropdown:hover .dropbtn {
   background-color: #0056a2;
   color: #fff;
   border: 2px solid #0056a2
 }
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -644,7 +536,6 @@ h0 {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,.2);
   z-index: 1
 }
-
 .dropdown-content a {
   float: left;
   color: #fff;
@@ -653,7 +544,6 @@ h0 {
   display: block;
   text-align: left
 }
-
 .dropdown:hover .dropdown-content {
   display: block;
   margin: 0 25px 0 0

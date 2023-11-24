@@ -72,8 +72,8 @@ try {
     <?php
     if (empty($userChoices)) {
         echo "<section style='position: relative; width: 100%' id='abandon'>
-            <a href='./result.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class='fa-solid fa-chevron-left'></i>Resultats</a>
-            <h1>Vous avez abandonné l'examen: celui-ci ne comptera pas</h1>
+            <a href='javascript:history.back()' class='button' style='position: absolute; top: 20px; left: 20px'><i class='fa-solid fa-chevron-left'></i>Resultats</a>
+            <h1>L'examen a été abandonné</h1>
         </section>";
     } else {
         $qnaofuser = array();
@@ -123,7 +123,7 @@ try {
             }
         }
         echo "<section style='position: relative; width: 100%' id='details-exam'>
-        <a href='./result.php' class='button' style='position: absolute; top: 20px; left: 20px'><i class='fa-solid fa-chevron-left'></i>Resultats</a>
+        <a href='javascript:history.back()' class='button' style='position: absolute; top: 20px; left: 20px'><i class='fa-solid fa-chevron-left'></i>Retour</a>
         <h1>Correction : " . $examTitle['Titre'] . "</h1>";
         $QNumber = 1;
         foreach ($qnaofuser as $key => $qanda) {
@@ -132,12 +132,12 @@ try {
                 <h4>" . $qanda['Contenu'] . "</h4>";
             if ($qanda['userAnswer'][0]['isCorrecte'] == 1) {
                 echo "<diva>
-                    <h3>Votre réponse: <ul><li>" . htmlspecialchars($qanda['userAnswer'][0]['Contenu']) . "</li></ul></h3>
+                    <h3>Réponse choisie: <ul><li>" . htmlspecialchars($qanda['userAnswer'][0]['Contenu']) . "</li></ul></h3>
                     <i style='color: green' class='fa-solid fa-check'></i>
                 </diva>";
             } else {
                 echo "<diva>
-                    <h3>Votre réponse: " . htmlspecialchars($qanda['userAnswer'][0]['Contenu']) . "</h3>
+                    <h3>Réponse choisie: " . htmlspecialchars($qanda['userAnswer'][0]['Contenu']) . "</h3>
                     <i style='color: darkred' class='fa-solid fa-xmark'></i>
                 </diva>";
             }

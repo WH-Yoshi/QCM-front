@@ -70,9 +70,9 @@ function error_message(){
                                     $stmt = $db->prepare($sql);
                                     $stmt->bindParam(':utilisateurID', $_SESSION['userID']);
                                     $stmt->execute();
-                                    $qcms = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach ($qcms as $qcm) {
-                                        echo "<option value='" . $qcm['qcmID'] . "'>" . $qcm['Titre'] . "</option>";
+                                    $qcmList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($qcmList as $qcm) {
+                                        echo "<option value='" . htmlspecialchars($qcm['qcmID']) . "'>" . htmlspecialchars($qcm['Titre']) . "</option>";
                                     }
                                 } catch (PDOException $e) {
                                     echo "Erreur de connexion à la base de données : " . $e->getMessage();
