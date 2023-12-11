@@ -108,9 +108,52 @@ main,section#connexion,section#connexion article.content {
   align-items: center
 }
 /* HOME */
+.homepage {
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.56) 52%, rgba(0, 0, 0, 0) 100%), url("../images/background-girl.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.homepage .left {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+}
+.homepage .right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+}
+.homepage h1 {
+  color: white;
+  font-size: 128px;
+  font-family: Inter;
+  font-weight: 400;
+  letter-spacing: 2.56px;
+  word-wrap: break-word
+}
+.homepage .logo {
+  background-image: url('../images/logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 80px;
+  height: auto;
+}
+.homepage .logo img {
+    display: none;
+}
 
-
-/* CONNEXION */
+  /* CONNEXION */
 main#conn {
   background-image: url("../images/");
 }
