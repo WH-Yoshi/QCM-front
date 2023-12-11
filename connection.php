@@ -29,10 +29,11 @@ function error_message(){
         <img class="logo" src="images/logo.png" alt="Logo Henallux" >
         <h2 id="nameofpage1">QCM - Technique WEB</h2>
     </header>
-    <main>
+    <main id="conn">
         <section id="connexion">
             <article class="content">
                 <h1>henallux</h1>
+                <p>Connectez vous pour continuer</p>
                 <form method="post" action="./scripts/login.php">
                     <input type="text" required placeholder="Identifiant" name="Identifiant" id="Identifiant">
                     <input type="password" required placeholder="Mot de passe" name="Motdepasse" id="Motdepasse">

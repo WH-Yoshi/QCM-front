@@ -7,8 +7,12 @@ if (!isset($_SESSION['identifiant'])) {
     exit();
 }
 $_SESSION['examChoiceID'] = $_POST['examenID'];
-if ($_SESSION['examChoiceID'] == 0) {
+if ($_SESSION['examChoiceID'] == 98) {
     $_SESSION['message'] = "Vous devez choisir un examen";
+    header("Location: ./menu.php");
+    exit();
+} else if ($_SESSION['examChoiceID'] == 99) {
+    $_SESSION['message'] = "Vous avez effectué tous les examens";
     header("Location: ./menu.php");
     exit();
 }

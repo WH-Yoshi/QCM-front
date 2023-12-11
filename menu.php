@@ -53,7 +53,8 @@ function error_message(){
             <article class="choices">
                 <div>
                     <h2>Examen</h2>
-                    <p>L'examen que vous choisirez se composera de 10 questions choisies au hasard parmi les 20 du sujet étudié. Vous avez <u>5 minutes</u> pour répondre à toutes les questions et n'avez droit qu'à <u>un seul essai</u>. Min 50% pour reussir</p>
+                    <p>L'examen que vous choisirez se composera de 10 questions choisies au hasard parmi les 20 du sujet étudié.
+                        <br> Vous avez <u>5 minutes</u> pour répondre à toutes les questions et n'avez droit qu'à <u>un seul essai</u>. Min 50% pour reussir</p>
                     <p style="color: #811b1b"><u>Tout abandon mène à l'échec</u></p>
                     <p>+1 : bonne réponse / -0.5 : mauvaise réponse / 0 : pas de réponse</p>
                 </div>
@@ -63,7 +64,6 @@ function error_message(){
                         <label for="examen">Sélectionner un examen :</label>
                         <article>
                             <select name="examenID" id="examen">
-                                <option value="0" selected>--Choisir un examen--</option>
                                 <?php
                                 try {
                                     $sql = "SELECT q.qcmID, q.Titre FROM QCM q WHERE NOT EXISTS (SELECT 1 FROM EXAMEN e WHERE e.qcm_ID = q.qcmID AND e.utilisateur_ID = :utilisateurID);";
@@ -71,6 +71,11 @@ function error_message(){
                                     $stmt->bindParam(':utilisateurID', $_SESSION['userID']);
                                     $stmt->execute();
                                     $qcmList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    if (empty($qcmList)) {
+                                        echo '<option value="99" selected>Aucun examen disponible</option>';
+                                    } else {
+                                        echo '<option value="98" selected>--Choisir un examen--</option>';
+                                    }
                                     foreach ($qcmList as $qcm) {
                                         echo "<option value='" . htmlspecialchars($qcm['qcmID']) . "'>" . htmlspecialchars($qcm['Titre']) . "</option>";
                                     }
@@ -87,7 +92,7 @@ function error_message(){
             <article class="choices">
                 <div>
                     <h2>Resultats</h2>
-                    <p>Dans la page resultats vous verrez la liste des examen que vous avez passé et leurs details</p>
+                    <p>Dans la page resultats vous verrez la liste des examen que vous avez effectués et leurs details</p>
                 </div>
                 <a href="./result.php">Resultats</a>
             </article>

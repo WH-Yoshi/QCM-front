@@ -123,9 +123,9 @@ foreach ($qcms as $qcm) {
                         echo '<p>' . $etu['Prenom'] . ' a un examen ' . $qcm['Valeur'] . ' en cours</p>';
                     } else {
                         if(intval($etu[$qcm['Valeur']]['Exam']['Resultat']) > round($etu[$qcm['Valeur']]['Exam']['NbQuestions'] / 2)) {
-                            echo '<p>' . $etu['Prenom'] . ' à raté l\'examen ' . $qcm['Valeur'] . '</p><a class="button" href="details.php?examID=' . $etu[$qcm['Valeur']]['Exam']['examenID'] . '">Détails</a>';
-                        } else {
                             echo '<p>' . $etu['Prenom'] . ' à réussi l\'examen ' . $qcm['Valeur'] . '</p><a class="button" href="details.php?examID=' . $etu[$qcm['Valeur']]['Exam']['examenID'] . '">Détails</a>';
+                        } else {
+                            echo '<p>' . $etu['Prenom'] . ' à raté l\'examen ' . $qcm['Valeur'] . '</p><a class="button" href="details.php?examID=' . $etu[$qcm['Valeur']]['Exam']['examenID'] . '">Détails</a>';
                         }
                     }
                 }

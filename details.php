@@ -1,10 +1,5 @@
 <?php
 session_start();
-function print_r2($val){
-    echo '<pre>';
-    print_r($val);
-    echo  '</pre>';
-}
 $db = require('./scripts/db.php');
 if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";
@@ -47,7 +42,6 @@ try {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/147d135573.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body class="longpage">
 <header>

@@ -76,7 +76,7 @@ h3#timer {
 }
 .button,form input {
   background: #333;
-  padding: 12px 20px;
+  padding: 12px 16px;
   border: 0;
   outline: 0;
   border-radius: 4px;
@@ -107,8 +107,13 @@ main,section#connexion,section#connexion article.content {
   justify-content: center;
   align-items: center
 }
+/* HOME */
+
 
 /* CONNEXION */
+main#conn {
+  background-image: url("../images/");
+}
 section#connexion {
   width: 400px;
   background-color: #fff;
@@ -119,7 +124,9 @@ section#connexion {
 section#connexion article.content {
   width: 100%;
   flex-direction: column;
-  gap: 40px
+}
+section#connexion article.content P {
+  margin: 35px 0 12px 0;
 }
 section#connexion h1 {
   font-size: 2em;
@@ -127,7 +134,7 @@ section#connexion h1 {
   color: #0056a2
 }
 section#connexion form {
-  gap: 25px
+  gap: 20px
 }
 ::placeholder {
   color: #aaa;
@@ -163,7 +170,7 @@ section#menu h1 {
 }
 section#panels {
   justify-content: space-around;
-  height: 400px
+  height: 450px
 }
 article.choices,article.choices div {
   display: flex;
