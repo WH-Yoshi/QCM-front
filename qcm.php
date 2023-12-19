@@ -36,7 +36,11 @@ try {
 } catch (PDOException $e) {
     echo "Error taking questions content : " . $e->getMessage();
 }
-$sql = "INSERT INTO EXAMEN (utilisateur_ID, qcm_ID, Etat, Resultat, NbQuestions) VALUES (:U_ID, :QCM_ID, 'en cours','null',:Nbquestion)";
+$sql = "INSERT INTO EXAMEN (utilisateur_ID, qcm_ID, Etat, Resultat, NbQuestions) VALUES (:U_ID, :QCM_ID, 'en cours','null',:Nbquestion)
+        ON DUPLICATE KEY UPDATE 
+        Etat = VALUES(Etat), 
+        Resultat = VALUES(Resultat), 
+        NbQuestions = VALUES(NbQuestions)";
 try {
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':U_ID', $_SESSION['userID']);
@@ -46,7 +50,19 @@ try {
 } catch (PDOException $e) {
     echo "Error coming from the database : " . $e->getMessage();
 }
-$_SESSION['examenID'] = $db->lastInsertId();
+$sql = "SELECT examenID FROM EXAMEN WHERE utilisateur_ID = :U_ID AND qcm_ID = :QCM_ID";
+try {
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':U_ID', $_SESSION['userID']);
+    $stmt->bindParam(':QCM_ID', $_SESSION['examChoiceID']);
+    $stmt->execute();
+    $examen = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($examen) {
+        $_SESSION['examenID'] = $examen['examenID'];
+    }
+} catch (PDOException $e) {
+    echo "Error coming from the database : " . $e->getMessage();
+}
 $_SESSION['NbQuestions'] = $totalQuestions[0]/2;
 $questionReponses = array();
 foreach ($questioncontentList as $question) {

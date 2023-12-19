@@ -36,7 +36,7 @@ foreach ($_POST as $key => $value) {
         $sql = "INSERT INTO CHOIX_UTILISATEUR (examen_ID, question_ID, reponse_ID, isCorrect) VALUES (:examen_ID, :question_ID, null, :isCorrecte)";
         try {
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':examen_ID', $_SESSION['examenID']);
+            $stmt->bindParam(':examen_ID', $_SESSION['examChoiceID']);
             $stmt->bindParam(':question_ID', $key);
             $stmt->bindParam(':isCorrecte', $userAnswer[0]['isCorrecte']);
             $stmt->execute();
@@ -49,10 +49,10 @@ foreach ($_POST as $key => $value) {
     } else {
         $total += 1;
     }
-    $sql = "INSERT INTO CHOIX_UTILISATEUR (examen_ID, question_ID, reponse_ID, isCorrect) VALUES (:examen_ID, :question_ID, :reponse_ID, :isCorrecte)";
+    $sql = "INSERT INTO CHOIX_UTILISATEUR (examen_ID, question_ID, reponse_ID, isCorrect) VALUES (:examen_ID, :question_ID, :reponse_ID, :isCorrecte);";
     try {
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':examen_ID', $_SESSION['examenID']);
+        $stmt->bindParam(':examen_ID', $_SESSION['examChoiceID']);
         $stmt->bindParam(':question_ID', $key);
         $stmt->bindParam(':reponse_ID', $value);
         $stmt->bindParam(':isCorrecte', $userAnswer[0]['isCorrecte']);
@@ -65,12 +65,12 @@ $sql = "UPDATE EXAMEN SET Etat = 'fini', Resultat = :resultat WHERE EXAMEN.exame
 try {
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':resultat', $total);
-    $stmt->bindParam(':examID', $_SESSION['examenID']);
+    $stmt->bindParam(':examID', $_SESSION['examChoiceID']);
     $stmt->execute();
 } catch (PDOException $e) {
     echo "Error coming from the database : " . $e->getMessage();
 }
-unset($_SESSION['examenID']);
+unset($_SESSION['examChoiceID']);
 ?>
 <!doctype html>
 <html lang="fr">
