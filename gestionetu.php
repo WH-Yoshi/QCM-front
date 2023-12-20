@@ -1,10 +1,5 @@
 <?php
 session_start();
-function print_r2($val){
-    echo '<pre>';
-    print_r($val);
-    echo  '</pre>';
-}
 $db = require('./scripts/db.php');
 if (!isset($_SESSION['identifiant'])) {
     $_SESSION['message'] = "Vous devez vous connecter pour accéder à cette page";

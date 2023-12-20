@@ -46,6 +46,6 @@ function error_message(){
     <footer>
         <img class="logo" src="images/logo.png" alt="Logo Henallux" >
     </footer>
-<script src="./scripts/exitscript.js">removeRemainingTime()</script>
+<script src="./scripts/exitscript.js"></script>
 </body>
 </html>

@@ -136,8 +136,8 @@ foreach ($questioncontentList as $question) {
                 $reponses = $questionReponses[$question['questionID']];
                 foreach ($reponses as $index => $reponse) {
                     echo "<div class='answer'>
-                        <input required type='radio' name='{$question['questionID']}' id='q{$question['questionID']}a{$index}' value='{$reponse['reponseID']}'>
-                        <label for='q{$question['questionID']}a{$index}'>" . htmlspecialchars($reponse['Contenu']) . "</label></div>";
+                        <input required type='radio' name='{$question['questionID']}' id='q{$question['questionID']}a$index' value='{$reponse['reponseID']}'>
+                        <label for='q{$question['questionID']}a$index'>" . htmlspecialchars($reponse['Contenu']) . "</label></div>";
                 }
                 echo "<div class='answer'>
                     <input type='radio' name='{$question['questionID']}' id='q{$question['questionID']}noanswer' value='idk'>

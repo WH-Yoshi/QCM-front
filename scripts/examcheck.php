@@ -26,6 +26,6 @@ if (isset($_SESSION['examenID'])) {
         }
     }
 }
-echo '<script src="../scripts/exitscript.js">removeRemainingTime()</script>';
+echo '<script src="../scripts/exitscript.js"></script>';
 
 
