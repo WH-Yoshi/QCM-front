@@ -54,8 +54,8 @@ function error_message(){
                 <div>
                     <h2>Examen</h2>
                     <p>L'examen que vous choisirez se composera de 10 questions choisies au hasard parmi les 20 du sujet étudié.
-                        <br> Vous avez <u>5 minutes</u> pour répondre à toutes les questions et n'avez droit qu'à <u>un seul essai</u>. Min 50% pour reussir</p>
-                    <p style="color: #811b1b"><u>Tout abandon mène à l'échec</u></p>
+                        <br> Vous avez <u>5 minutes</u> pour répondre à toutes les questions et n'avez droit à qu'<u>un seul essai</u>. Min 50% pour reussir</p>
+                    <p style="color: #811b1b"><u>Tout abandon mène à l'échec</u> (Déconnexion, retour, etc.)</p>
                     <p>+1 : bonne réponse / -0.5 : mauvaise réponse / 0 : pas de réponse</p>
                 </div>
                 <div>
